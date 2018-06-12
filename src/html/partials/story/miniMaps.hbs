@@ -1,0 +1,21 @@
+{{#each copy.city}}
+<div id='{{city}}' class='city-wrapper'>
+	<p class='tk-canela x-large city-hed'>{{city}}</p>
+	<div class='us-map'></div>
+	<div class='map-wrapper'>
+		<div class='mini-map-wrapper'>
+			<div class='mini-map'></div>
+			<p class='tk-atlas small'>All same sex</p>
+		</div>
+		<div class='mini-map-wrapper'>
+			<div class='mini-map'></div>
+			<p class='tk-atlas small'>Male</p>
+		</div>
+		<div class='mini-map-wrapper'>
+			<div class='mini-map'></div>
+			<p class='tk-atlas small'>Female</p>
+		</div>
+	</div>
+	<p>{{text}}</p>
+</div>
+{{/each}}
