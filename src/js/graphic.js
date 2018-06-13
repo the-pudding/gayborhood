@@ -66,7 +66,8 @@ function buildMap() {
 		center: [-73.980539,40.711444],
 		maxZoom: 18,
 		//maxBounds: [[-122.963019,47.303616], [-121.782112, 47.983433]],
-		zoom: 12
+		zoom: 11,
+		//interactive: false
 	})
 
 	openerMap.scrollZoom.disable();
@@ -196,6 +197,40 @@ function buildMap() {
         },
 				'source-layer': 'Parade_routes'
     }, firstSymbolId);
+
+		var popup = new mapboxgl.Popup({
+			closeButton: false,
+			closeOnClick: false
+		})
+
+		//MAP INTERACTION
+		//Adds hovers to bars
+		openerMap.on('mouseenter', 'gay-bars', function(e) {
+			var features = openerMap.queryRenderedFeatures(e.point,{ layers: ['gay-bars'] });
+
+			popup
+				.setLngLat(e.lngLat)
+				.setHTML(features[0].properties.Name)
+				.addTo(openerMap);
+		})
+		//Removes hovers to bars
+		openerMap.on('mouseleave', 'gay-bars', function(e) {
+			popup.remove();
+		})
+		//Adds hovers to zips
+		// openerMap.on('mouseenter', 'gayborhood-index', function(e) {
+		// 	var features = openerMap.queryRenderedFeatures(e.point,{ layers: ['gayborhood-index'] });
+		//
+		// 	console.log(features);
+		// 	popup
+		// 		.setLngLat(e.lngLat)
+		// 		.setHTML(features[0].properties.ZCTA5CE10)
+		// 		.addTo(openerMap);
+		// })
+		// //Removes hovers to zips
+		// openerMap.on('mouseleave', 'gayborhood-index', function(e) {
+		// 	popup.remove();
+		// })
 	});
 }
 
