@@ -3,6 +3,9 @@ import 'intersection-observer'
 import scrollama from 'scrollama';
 // D3 is included by globally by default
 
+var openerMap;
+
+//SCROLLAMA
 var container = d3.select('#scroll');
 var graphic = container.select('.scroll__graphic');
 var map = graphic.select('#scrollMap');
@@ -52,6 +55,150 @@ function setupStickyfill() {
 	});
 }
 
+//MAPBOX
+function buildMap() {
+	//Initializes mapbox mapbox
+	mapboxgl.accessToken = 'pk.eyJ1IjoiamFkaWVobSIsImEiOiIzTjRUSFZjIn0.sed_QtqpB7m5yFLmK2VV9g';
+
+	openerMap = new mapboxgl.Map({
+		container: 'scrollMap', //container id
+		style: 'mapbox://styles/jadiehm/cji3f7z4n13s52rmz42onwmkx', //style URL
+		center: [-73.980539,40.711444],
+		maxZoom: 18,
+		//maxBounds: [[-122.963019,47.303616], [-121.782112, 47.983433]],
+		zoom: 12
+	})
+
+	openerMap.scrollZoom.disable();
+
+	openerMap.on('load', function() {
+		//Adds layers below labels
+		var layers = openerMap.getStyle().layers;
+    // Find the index of the first symbol layer in the map style
+    var firstSymbolId;
+    for (var i = 0; i < layers.length; i++) {
+        if (layers[i].type === 'symbol') {
+            firstSymbolId = layers[i].id;
+            break;
+        }
+    }
+		//Adds overall gayborhood index
+		openerMap.addLayer({
+				'id': 'gayborhood-index',
+				'source': {
+					'type': 'vector',
+					'url': 'mapbox://jadiehm.indexJoined'
+				},
+				'layout': {
+            'visibility': 'visible'
+        },
+				'source-layer': 'original',
+				'type': 'fill',
+				'filter': ['has', 'ZIPS_Ind_9'],
+				'paint': {
+						'fill-color': [
+								'interpolate',
+								['linear'],
+								['get', 'ZIPS_Ind_9'],
+								0, '#f6f6f6',
+								4, '#b7d5ac',
+								10, '#6eaa5e',
+								20, '#008000'
+						],
+						'fill-opacity': 0.5
+				}
+		}, firstSymbolId);
+		//Adds MM gayborhood index
+		openerMap.addLayer({
+				'id': 'gayborhood-index-MM',
+				'source': {
+					'type': 'vector',
+					'url': 'mapbox://jadiehm.indexJoined'
+				},
+				'layout': {
+            'visibility': 'none'
+        },
+				'source-layer': 'original',
+				'type': 'fill',
+				'filter': ['has', 'ZIPS_Ind_7'],
+				'paint': {
+						'fill-color': [
+								'interpolate',
+								['linear'],
+								['get', 'ZIPS_Ind_7'],
+								0, '#f6f6f6',
+								4, '#cfb2ff',
+								10, '#9266ff',
+								20, '#0000ff'
+						],
+						'fill-opacity': 0.5
+				}
+		}, firstSymbolId);
+		//Adds FF gayborhood index
+		openerMap.addLayer({
+				'id': 'gayborhood-index-FF',
+				'source': {
+					'type': 'vector',
+					'url': 'mapbox://jadiehm.indexJoined'
+				},
+				'layout': {
+            'visibility': 'none'
+        },
+				'source-layer': 'original',
+				'type': 'fill',
+				'filter': ['has', 'ZIPS_Ind_6'],
+				'paint': {
+						'fill-color': [
+								'interpolate',
+								['linear'],
+								['get', 'ZIPS_Ind_6'],
+								0, '#f6f6f6',
+								4, '#ff9475',
+								10, '#ff6544',
+								20, '#ff0000'
+						],
+						'fill-opacity': 0.5
+				}
+		}, firstSymbolId);
+		//Adds gay bar points
+    openerMap.addLayer({
+        'id': 'gay-bars',
+        'type': 'circle',
+        'source': {
+					'type': 'vector',
+	        'url': 'mapbox://jadiehm.4clcru2x'
+				},
+        'layout': {
+            'visibility': 'visible'
+        },
+        'paint': {
+            'circle-radius': 3,
+            'circle-color': 'rgba(1,1,1,1)'
+        },
+				'source-layer': 'YelpPoints-15loj8'
+    }, firstSymbolId);
+		//Adds parade route
+    openerMap.addLayer({
+        'id': 'paradeRoute',
+        'type': 'line',
+        'source': {
+					'type': 'vector',
+	        'url': 'mapbox://jadiehm.b4vpcbja'
+				},
+        'layout': {
+            'visibility': 'visible',
+						'line-join': 'round',
+            'line-cap': 'round'
+        },
+        'paint': {
+					'line-color': '#262626',
+					'line-width': 2
+        },
+				'source-layer': 'Parade_routes'
+    }, firstSymbolId);
+	});
+}
+
 function resize() {}
 
 function init() {
@@ -77,23 +224,7 @@ function init() {
     // setup resize event
     window.addEventListener('resize', handleResize);
 
-		//Initializes mapbox mapbox
-		mapboxgl.accessToken = 'pk.eyJ1IjoiamFkaWVobSIsImEiOiIzTjRUSFZjIn0.sed_QtqpB7m5yFLmK2VV9g';
-
-		var openerMap = new mapboxgl.Map({
-			container: 'scrollMap', //container id
-			style: 'mapbox://styles/jadiehm/cji3f7z4n13s52rmz42onwmkx', //style URL
-			center: [-73.980539,40.711444],
-			maxZoom: 18,
-			//maxBounds: [[-122.963019,47.303616], [-121.782112, 47.983433]],
-			zoom: 12
-		})
-
-		openerMap.scrollZoom.disable();
-
-		openerMap.on('load', function() {
-			// the rest of the map code will go in here
-		});
+		buildMap();
 }
 
 export default { init, resize };
