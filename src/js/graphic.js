@@ -17,7 +17,10 @@ var scroller = scrollama();
 function handleResize() {
 	// 1. update height of step elements
 	var stepHeight = Math.floor(window.innerHeight * 0.75);
-	//step.style('height', stepHeight + 'px');
+	step.style('height', `${stepHeight}px`)
+	
+	step.filter((d,i) => i === 0)
+		.style('margin-top', `-${window.innerHeight}px`)
 	// 2. update width/height of graphic element
 	var bodyWidth = d3.select('body').node().offsetWidth;
 	var textWidth = text.node().offsetWidth;

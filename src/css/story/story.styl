@@ -3,36 +3,34 @@
   position absolute
 	right 1rem
 	top 50%
-	-moz-transform translateY(-50%)
-	-webkit-transform translateY(-50%)
 	transform translateY(-50%)
 
 #scroll
 	position relative
 
 .scroll__graphic
-	position -webkit-sticky
-  width 100%
+	width 100%
 	position sticky
-	float left
 	top 0
 	right 0
-	-webkit-transform translate3d(0, 0, 0)
-	-moz-transform translate3d(0, 0, 0)
 	transform translate3d(0, 0, 0)
 
 .scroll__text
+	// position absolute
+	// top 0
+	// left 0
 	position relative
 	padding 0 1rem
 	max-width 30rem
 	width 33%
+	// margin 0
 
 .step-wrapper
   background-color rgba(255,255,255, 0.9)
 
 .step
 	margin 2rem auto
-  opacity 0.5
+	opacity 0.5
 
 .step.is-active
 	opacity 1
