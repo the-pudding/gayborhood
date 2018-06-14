@@ -1,7 +1,9 @@
 {{#each copy.city}}
 <div id='{{city}}' class='city-wrapper'>
 	<p class='tk-canela x-large city-hed'>{{city}}</p>
-	<div class='us-map'></div>
+	<div class='us-map'>
+		<img src='assets/images/{{minimap}}.png' alt='{{city}}'>
+	</div>
 	<div class='map-wrapper'>
 		<div class='mini-map-wrapper'>
 			<div class='mini-map'></div>
@@ -16,6 +18,6 @@
 			<p class='tk-atlas small'>Female</p>
 		</div>
 	</div>
-	<p>{{text}}</p>
+	<p>{{{text}}}</p>
 </div>
 {{/each}}

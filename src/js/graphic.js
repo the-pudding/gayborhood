@@ -18,7 +18,7 @@ function handleResize() {
 	// 1. update height of step elements
 	var stepHeight = Math.floor(window.innerHeight * 0.75);
 	step.style('height', `${stepHeight}px`)
-	
+
 	step.filter((d,i) => i === 0)
 		.style('margin-top', `-${window.innerHeight}px`)
 	// 2. update width/height of graphic element
@@ -39,10 +39,50 @@ function handleResize() {
 // scrollama event handlers
 function handleStepEnter(response) {
 	// response = { element, direction, index }
-	// add color to current step only
 	step.classed('is-active', function (d, i) {
 		return i === response.index;
 	})
+
+	if(response.index === 0) {
+		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
+		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
+		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
+		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
+		openerMap.setLayoutProperty('gay-bars', 'visibility', 'none');
+	}
+
+	if(response.index === 1) {
+		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
+		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
+		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
+		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
+		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
+	}
+
+	if(response.index === 2) {
+		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'visible');
+		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
+		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
+		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
+		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
+	}
+
+	if(response.index === 3) {
+		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
+		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'visible');
+		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
+		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
+		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
+	}
+
+	if(response.index === 4) {
+		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
+		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
+		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'visible');
+		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
+		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
+	}
+
 	// update graphic based on step
 	map.select('p').text(response.index + 1)
 }
@@ -173,7 +213,7 @@ function buildMap() {
 	        'url': 'mapbox://jadiehm.4clcru2x'
 				},
         'layout': {
-            'visibility': 'visible'
+            'visibility': 'none'
         },
         'paint': {
             'circle-radius': 3,
@@ -190,7 +230,7 @@ function buildMap() {
 	        'url': 'mapbox://jadiehm.b4vpcbja'
 				},
         'layout': {
-            'visibility': 'visible',
+            'visibility': 'none',
 						'line-join': 'round',
             'line-cap': 'round'
         },
