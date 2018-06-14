@@ -67,7 +67,7 @@ function buildMap() {
 		maxZoom: 18,
 		//maxBounds: [[-122.963019,47.303616], [-121.782112, 47.983433]],
 		zoom: 11,
-		//interactive: false
+		interactive: false
 	})
 
 	openerMap.scrollZoom.disable();
