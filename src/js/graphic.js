@@ -1,4 +1,4 @@
-import mapboxgl from 'mapbox-gl';
+//import mapboxgl from 'mapbox-gl';
 import 'intersection-observer'
 import scrollama from 'scrollama';
 // D3 is included by globally by default
