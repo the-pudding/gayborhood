@@ -4,19 +4,39 @@
 	</div>
 	<div class='scroll__text'>
 		<div class='step' data-step='1'>
-				<p>Parade route</p>
+				<div class='step-wrapper'>
+					{{#each copy.stepOne}}
+					<p>{{{value}}}</p>
+					{{/each}}
+				</div>
 		</div>
 		<div class='step' data-step='2'>
-				<p>Gay bars</p>
+			<div class='step-wrapper'>
+				{{#each copy.stepTwo}}
+				<p>{{{value}}}</p>
+				{{/each}}
+			</div>
 		</div>
 		<div class='step' data-step='3'>
-				<p>Gayborhood</p>
+			<div class='step-wrapper'>
+				{{#each copy.stepThree}}
+				<p>{{{value}}}</p>
+				{{/each}}
+			</div>
 		</div>
 		<div class='step' data-step='4'>
-				<p>Male gayborhood</p>
+			<div class='step-wrapper'>
+				{{#each copy.stepFour}}
+				<p>{{{value}}}</p>
+				{{/each}}
+			</div>
 		</div>
 		<div class='step' data-step='5'>
-				<p>Female gayborhood</p>
+			<div class='step-wrapper'>
+				{{#each copy.stepFive}}
+				<p>{{{value}}}</p>
+				{{/each}}
+			</div>
 		</div>
 	</div>
 </section>
