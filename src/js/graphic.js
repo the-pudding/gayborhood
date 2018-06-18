@@ -138,12 +138,12 @@ function buildMap() {
         },
 				'source-layer': 'original',
 				'type': 'fill',
-				'filter': ['has', 'ZIPS_Ind_9'],
+				'filter': ['has', 'ZIPS_Ind_8'],
 				'paint': {
 						'fill-color': [
 								'interpolate',
 								['linear'],
-								['get', 'ZIPS_Ind_9'],
+								['get', 'ZIPS_Ind_8'],
 								0, '#f6f6f6',
 								4, '#b7d5ac',
 								10, '#6eaa5e',
@@ -210,7 +210,7 @@ function buildMap() {
         'type': 'circle',
         'source': {
 					'type': 'vector',
-	        'url': 'mapbox://jadiehm.4clcru2x'
+	        'url': 'mapbox://jadiehm.2zsul8ff'
 				},
         'layout': {
             'visibility': 'none'
@@ -219,7 +219,7 @@ function buildMap() {
             'circle-radius': 3,
             'circle-color': 'rgba(1,1,1,1)'
         },
-				'source-layer': 'YelpPoints-15loj8'
+				'source-layer': 'gaybarsMOD-575puu'
     }, firstSymbolId);
 		//Adds parade route
     openerMap.addLayer({

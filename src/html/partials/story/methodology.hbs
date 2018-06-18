@@ -1,0 +1,13 @@
+<div class="methodology-wrapper">
+	<div class='methodology'>
+		<h3>Creating the gayborhoods index</h3>
+			{{#each copy.details}}
+			<p class='small tk-atlas'>{{{value}}}</p>
+			{{/each}}
+			<ul>
+				{{#each copy.metrics}}
+				<li class='small tk-atlas'><span class='list-start tk-atlas small'>{{{dataName}}}: </span>{{{dataDesc}}}</li>
+				{{/each}}
+			</ul>
+	</div>
+</div>
