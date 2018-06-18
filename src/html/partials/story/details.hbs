@@ -3,4 +3,9 @@
 		{{#each copy.details}}
 		<p class>{{{value}}}</p>
 		{{/each}}
+		<ul>
+			{{#each copy.periods}}
+			<li><span class='list-start small tk-atlas'>{{{periodName}}}: </span>{{{periodDesc}}}</li>
+			{{/each}}
+		</ul>
 </div>
