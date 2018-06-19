@@ -106,8 +106,8 @@ function buildMap() {
 	openerMap = new mapboxgl.Map({
 		container: 'scrollMap', //container id
 		style: 'mapbox://styles/jadiehm/cji3f7z4n13s52rmz42onwmkx', //style URL
-		center: [-73.980539,40.711444],
-		maxZoom: 18,
+		center: [-73.980539,40.715444],
+		//maxZoom: 18,
 		//maxBounds: [[-122.963019,47.303616], [-121.782112, 47.983433]],
 		zoom: 11,
 		interactive: false
@@ -145,9 +145,10 @@ function buildMap() {
 								['linear'],
 								['get', 'ZIPS_Ind_8'],
 								0, '#f6f6f6',
-								4, '#b7d5ac',
-								10, '#6eaa5e',
-								20, '#008000'
+								4, '#c9dfc1',
+								10, '#93c085',
+								20, '#5a9f4a',
+								30, '#008000'
 						],
 						'fill-opacity': 0.5
 				}
@@ -171,9 +172,10 @@ function buildMap() {
 								['linear'],
 								['get', 'ZIPS_Ind_7'],
 								0, '#f6f6f6',
-								4, '#cfb2ff',
-								10, '#9266ff',
-								20, '#0000ff'
+								4, '#dcc4ff',
+								10, '#b38cff',
+								20, '#7f53ff',
+								30, '#0000ff'
 						],
 						'fill-opacity': 0.5
 				}
@@ -197,9 +199,10 @@ function buildMap() {
 								['linear'],
 								['get', 'ZIPS_Ind_6'],
 								0, '#f6f6f6',
-								4, '#ff9475',
-								10, '#ff6544',
-								20, '#ff0000'
+								4, '#ffd5c6',
+								10, '#ffa78d',
+								20, '#ff7251',
+								30, '#ff0000'
 						],
 						'fill-opacity': 0.5
 				}
