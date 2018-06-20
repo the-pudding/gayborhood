@@ -21,9 +21,15 @@
 
 .scroll__text
 	position relative
-	padding 0 1rem
-	max-width 30rem
-	width 33%
+	max-width 100%
+	width 100%
+	padding 0
+	+mq('bp-4')
+		width 50%
+		padding 0 1rem
+	+mq('bp-5')
+		width 33%
+		max-width 30rem
 
 	.step.is-active
 		opacity 1
@@ -37,13 +43,17 @@
 
 			p
 				padding 1rem
+				set-type-size('small', true)
+				+mq('bp-4')
+					set-type-size('medium', true)
 
 				span
 					text-transform uppercase
 					font-family $atlas
 					font-weight bold
-					font-size 16px
-	        line-height 1.7
+					set-type-size('small', true)
+					+mq('bp-4')
+						set-type-size('root', true)
 
 .details
 	margin 0 auto
@@ -54,8 +64,7 @@
 
 	.axis text
 		font-family $atlas
-		font-size 12px
-		line-height 1.5
+		set-type-size('x-small', true)
 		pointer-events none
 		fill $gray
 
