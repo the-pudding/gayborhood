@@ -303,11 +303,85 @@ function citySelection() {
 d3.select("#city-select")
   .on("change", citySelection.bind());
 
+//STRIP CHARTS
+function distChart() {
+	var indexType = ['femaleIndex', 'maleIndex'];
+	//Loads the data
+	d3.csv('assets/data/IndexCitiesCSV.csv', ready);
+
+	function ready(err, data) {
+	  if (err) throw "error loading data";
+	  //Format data
+	  data.forEach(function(d) { d.index = +d.index; });
+	  //Map the property names to the data
+	  indexType = d3.set(data.map(function(d) { return d.indexType; })).values();
+	  //Make a chart for each property
+	  var charts = indexType.map(makeChart);
+
+	  function makeChart(index, chartIndex) {
+	    //Append individual chart div
+	    var chartContainer = d3.select('#dist-chart').append('div')
+	      .attr("class", 'g-chart-container');
+	    //Margin and dimensions
+	    var margin = {top: 0, right: 0, bottom: 30, left: 0};
+	    var constWidth = d3.select(".g-chart-container").node().clientWidth;
+	    var width = constWidth - margin.left - margin.right,
+	        height = 130 - margin.top - margin.bottom;
+	    //Creates the scales
+	    var xScale = d3.scaleLinear()
+	      .range([0, width])
+	      .domain([0, 50]);
+	    var yScale = d3.scaleLinear()
+	      .range([height, 0])
+	      .domain([0, 100]);
+	    //Axes
+			var xAxis = d3.axisBottom()
+					.scale(xScale)
+					.tickPadding(8)
+					.ticks(5)
+	    //Finds the data associated with each index
+	    var currentIndex = index;
+	    var currentIndexData = data.filter(function(d) { return d.indexType === currentIndex; });
+			//Appends the property name to the individual chart container
+		    var chartName = chartContainer.append('h5')
+		      .attr('class', 'g-name')
+					.text(currentIndex)
+			//Appends the index chart to the individual chart container
+	    var chart = chartContainer.append('div')
+	      .attr('class', 'g-chart');
+
+	    //Appends the svg to the chart-container div
+	    var svg = chart.append('svg')
+	      .attr('width', width + margin.left + margin.right)
+	      .attr('height', height + margin.top + margin.bottom)
+	      .append('g')
+	      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+	    //Draw Axes
+			var xAxisGroup = svg.append('g')
+				.attr('class', 'x axis')
+				.attr('transform', 'translate(0,' + height + ')')
+				.call(xAxis);
+			//Strips
+			var strips = svg.selectAll("line.index")
+				.data(currentIndexData)
+				.enter()
+				.append("line")
+				.attr("class", "percentline")
+				.attr("x1", function(d,i) { return xScale(d.index); })
+				.attr("x2", function(d) { return xScale(d.index); })
+				.attr("y1", 50)
+				.attr("y2", 100)
+				.style("stroke", "#cc0000")
+				.style("stroke-width", 2)
+				.style("opacity", 0.4)
+	  }
+	}
+}
+
 function resize() {}
 
 function init() {
-	//console.log('Make something awesome!');
-
 	// 1. force a resize on load to ensure proper dimensions are sent to scrollama
     handleResize();
 
@@ -329,6 +403,7 @@ function init() {
     window.addEventListener('resize', handleResize);
 
 		buildMap();
+		distChart();
 }
 
 export default { init, resize };
