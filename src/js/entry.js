@@ -16,6 +16,19 @@ function resize() {
 	}
 }
 
+function setupStickyHeader() {
+	const $header = $body.select('header');
+	if ($header.classed('is-sticky')) {
+		const $menu = $body.select('.header__menu');
+		const $toggle = $body.select('.menu__toggle');
+		$toggle.on('click', () => {
+			const visible = $menu.classed('is-visible');
+			$menu.classed('is-visible', !visible);
+			$toggle.classed('is-visible', !visible);
+		});
+	}
+}
+
 function init() {
 	// add mobile class to body tag
 	$body.classed('is-mobile', isMobile.any());
@@ -23,6 +36,7 @@ function init() {
 	window.addEventListener('resize', debounce(resize, 150));
 	// kick off graphic code
 	graphic.init();
+	setupStickyHeader();
 }
 
 init();
