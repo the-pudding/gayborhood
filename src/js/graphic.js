@@ -40,43 +40,43 @@ function handleResize() {
 // scrollama event handlers
 function renderStep(index) {
 	if (index === 0) {
-		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
-		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
-		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
-		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
-		openerMap.setLayoutProperty('gay-bars', 'visibility', 'none');
+		openerMap.setPaintProperty('gayborhood-index', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
+		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 0);
 	}
 
 	if (index === 1) {
-		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
-		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
-		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
-		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
-		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
+		openerMap.setPaintProperty('gayborhood-index', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
+		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 1);
 	}
 
 	if (index === 2) {
-		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'visible');
-		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
-		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
-		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
-		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
+		openerMap.setPaintProperty('gayborhood-index', 'fill-opacity', 0.5);
+		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
+		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 1);
 	}
 
 	if (index === 3) {
-		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
-		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'visible');
-		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
-		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
-		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
+		openerMap.setPaintProperty('gayborhood-index', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0.5);
+		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
+		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 1);
 	}
 
 	if (index === 4) {
-		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
-		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
-		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'visible');
-		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
-		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
+		openerMap.setPaintProperty('gayborhood-index', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0.5);
+		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 1);
 	}
 }
 
@@ -225,7 +225,8 @@ function buildMap() {
         },
         'paint': {
             'circle-radius': 3,
-            'circle-color': 'rgba(1,1,1,1)'
+            'circle-color': 'rgba(1,1,1,1)',
+						'circle-opacity': 1
         },
 				'source-layer': 'gaybarsMOD-575puu'
     }, firstSymbolId);
@@ -244,30 +245,31 @@ function buildMap() {
         },
         'paint': {
 					'line-color': '#262626',
-					'line-width': 2
+					'line-width': 2,
+					'line-opacity': 1
         },
 				'source-layer': 'Parade_routes'
     }, firstSymbolId);
 
-		var popup = new mapboxgl.Popup({
-			closeButton: false,
-			closeOnClick: false
-		})
-
-		//MAP INTERACTION
-		//Adds hovers to bars
-		openerMap.on('mouseenter', 'gay-bars', function(e) {
-			var features = openerMap.queryRenderedFeatures(e.point,{ layers: ['gay-bars'] });
-
-			popup
-				.setLngLat(e.lngLat)
-				.setHTML(features[0].properties.Name)
-				.addTo(openerMap);
-		})
-		//Removes hovers to bars
-		openerMap.on('mouseleave', 'gay-bars', function(e) {
-			popup.remove();
-		})
+		// var popup = new mapboxgl.Popup({
+		// 	closeButton: false,
+		// 	closeOnClick: false
+		// })
+		//
+		// //MAP INTERACTION
+		// //Adds hovers to bars
+		// openerMap.on('mouseenter', 'gay-bars', function(e) {
+		// 	var features = openerMap.queryRenderedFeatures(e.point,{ layers: ['gay-bars'] });
+		//
+		// 	popup
+		// 		.setLngLat(e.lngLat)
+		// 		.setHTML(features[0].properties.Name)
+		// 		.addTo(openerMap);
+		// })
+		// //Removes hovers to bars
+		// openerMap.on('mouseleave', 'gay-bars', function(e) {
+		// 	popup.remove();
+		// })
 		//Adds hovers to zips
 		// openerMap.on('mouseenter', 'gayborhood-index', function(e) {
 		// 	var features = openerMap.queryRenderedFeatures(e.point,{ layers: ['gayborhood-index'] });
@@ -292,7 +294,7 @@ function scrollTo(element) {
   window.scroll({
     behavior: 'smooth',
     left: 0,
-    top: element.offsetTop - 55
+    top: element.offsetTop - 110
   });
 }
 
@@ -400,12 +402,18 @@ function distChart() {
 function resize() {}
 
 function truncatePage(truncate) {
-	const height = truncate ? $content.select('.intro').node().offsetHeight : 'auto'
+	const heightContent = truncate ? $content.select('.intro').node().offsetHeight : 'auto'
 	$content
-		.st('height', height)
+		.st('height', heightContent)
 		.classed('is-truncated', truncate)
 
-	if (!truncate) renderStep(0)
+	if (!truncate) {
+		openerMap.setPaintProperty('gayborhood-index', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0);
+		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
+		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 0);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 0);
+	}
 }
 
 function init() {
