@@ -5,6 +5,7 @@ import scrollama from 'scrollama';
 
 var openerMap;
 
+const $content = d3.select('#content')
 //SCROLLAMA
 var container = d3.select('#scroll');
 var graphic = container.select('.scroll__graphic');
@@ -37,13 +38,8 @@ function handleResize() {
 	scroller.resize();
 }
 // scrollama event handlers
-function handleStepEnter(response) {
-	// response = { element, direction, index }
-	step.classed('is-active', function (d, i) {
-		return i === response.index;
-	})
-
-	if(response.index === 0) {
+function renderStep(index) {
+	if (index === 0) {
 		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
 		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
 		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
@@ -51,7 +47,7 @@ function handleStepEnter(response) {
 		openerMap.setLayoutProperty('gay-bars', 'visibility', 'none');
 	}
 
-	if(response.index === 1) {
+	if (index === 1) {
 		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
 		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
 		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
@@ -59,7 +55,7 @@ function handleStepEnter(response) {
 		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
 	}
 
-	if(response.index === 2) {
+	if (index === 2) {
 		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'visible');
 		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
 		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
@@ -67,7 +63,7 @@ function handleStepEnter(response) {
 		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
 	}
 
-	if(response.index === 3) {
+	if (index === 3) {
 		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
 		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'visible');
 		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'none');
@@ -75,13 +71,22 @@ function handleStepEnter(response) {
 		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
 	}
 
-	if(response.index === 4) {
+	if (index === 4) {
 		openerMap.setLayoutProperty('gayborhood-index', 'visibility', 'none');
 		openerMap.setLayoutProperty('gayborhood-index-MM', 'visibility', 'none');
 		openerMap.setLayoutProperty('gayborhood-index-FF', 'visibility', 'visible');
 		openerMap.setLayoutProperty('paradeRoute', 'visibility', 'visible');
 		openerMap.setLayoutProperty('gay-bars', 'visibility', 'visible');
 	}
+}
+
+function handleStepEnter(response) {
+	// response = { element, direction, index }
+	step.classed('is-active', function (d, i) {
+		return i === response.index;
+	})
+
+	renderStep(response.index)
 
 	// update graphic based on step
 	map.select('p').text(response.index + 1)
@@ -134,7 +139,7 @@ function buildMap() {
 					'url': 'mapbox://jadiehm.indexJoined'
 				},
 				'layout': {
-            'visibility': 'none'
+            'visibility': 'visible'
         },
 				'source-layer': 'original',
 				'type': 'fill',
@@ -161,7 +166,7 @@ function buildMap() {
 					'url': 'mapbox://jadiehm.indexJoined'
 				},
 				'layout': {
-            'visibility': 'none'
+            'visibility': 'visible'
         },
 				'source-layer': 'original',
 				'type': 'fill',
@@ -188,7 +193,7 @@ function buildMap() {
 					'url': 'mapbox://jadiehm.indexJoined'
 				},
 				'layout': {
-            'visibility': 'none'
+            'visibility': 'visible'
         },
 				'source-layer': 'original',
 				'type': 'fill',
@@ -216,7 +221,7 @@ function buildMap() {
 	        'url': 'mapbox://jadiehm.2zsul8ff'
 				},
         'layout': {
-            'visibility': 'none'
+            'visibility': 'visible'
         },
         'paint': {
             'circle-radius': 3,
@@ -233,7 +238,7 @@ function buildMap() {
 	        'url': 'mapbox://jadiehm.b4vpcbja'
 				},
         'layout': {
-            'visibility': 'none',
+            'visibility': 'visible',
 						'line-join': 'round',
             'line-cap': 'round'
         },
@@ -277,6 +282,8 @@ function buildMap() {
 		// openerMap.on('mouseleave', 'gayborhood-index', function(e) {
 		// 	popup.remove();
 		// })
+
+		truncatePage(false)
 	});
 }
 
@@ -392,7 +399,17 @@ function distChart() {
 
 function resize() {}
 
+function truncatePage(truncate) {
+	const height = truncate ? $content.select('.intro').node().offsetHeight : 'auto'
+	$content
+		.st('height', height)
+		.classed('is-truncated', truncate)
+
+	if (!truncate) renderStep(0)
+}
+
 function init() {
+		truncatePage(true);
 	// 1. force a resize on load to ensure proper dimensions are sent to scrollama
     handleResize();
 

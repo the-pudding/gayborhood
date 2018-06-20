@@ -34,9 +34,12 @@ function init() {
 	$body.classed('is-mobile', isMobile.any());
 	// setup resize event
 	window.addEventListener('resize', debounce(resize, 150));
+
+	setupStickyHeader();
+	
 	// kick off graphic code
 	graphic.init();
-	setupStickyHeader();
+	
 }
 
 init();
