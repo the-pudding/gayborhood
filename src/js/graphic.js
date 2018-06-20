@@ -280,6 +280,29 @@ function buildMap() {
 	});
 }
 
+//DROPDOWN ANCHOR LINKS
+function scrollTo(element) {
+  window.scroll({
+    behavior: 'smooth',
+    left: 0,
+    top: element.offsetTop - 47
+  });
+}
+
+function citySelection() {
+	var citySelection = document.getElementById('city-select');
+	var citySelectionValue = citySelection.options[citySelection.selectedIndex].value;
+	var citySelectionLink = citySelectionValue + '-link';
+
+	if (citySelectionValue !== 'choose') {
+		var cityScroll = document.getElementById(citySelectionLink)
+		scrollTo(cityScroll);
+	}
+}
+
+d3.select("#city-select")
+  .on("change", citySelection.bind());
+
 function resize() {}
 
 function init() {

@@ -6,8 +6,11 @@
 </div>
 <div class='dropdown-sticky'>
 	<div class='dropdown-wrapper'>
-		<select>
-		  <option value="choose">Choose a city</option>
+		<select id='city-select' class='tk-atlas medium'>
+		  <option value='choose' selected='true' disabled='disabled'>Choose a city</option>
+			{{#each copy.city}}
+			<option value='{{minimap}}'>{{minimap}}</option>
+			{{/each}}
 		</select>
-	</div>	
+	</div>
 </div>
