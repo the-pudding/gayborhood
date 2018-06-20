@@ -145,10 +145,10 @@ function buildMap() {
 								['linear'],
 								['get', 'ZIPS_Ind_8'],
 								0, '#f6f6f6',
-								4, '#c9dfc1',
-								10, '#93c085',
-								20, '#5a9f4a',
-								30, '#008000'
+								4, '#d0eee0',
+								10, '#9fdcc1',
+								20, '#6acba3',
+								30, '#16b886'
 						],
 						'fill-opacity': 0.5
 				}
@@ -199,10 +199,10 @@ function buildMap() {
 								['linear'],
 								['get', 'ZIPS_Ind_6'],
 								0, '#f6f6f6',
-								4, '#ffd5c6',
-								10, '#ffa78d',
-								20, '#ff7251',
-								30, '#ff0000'
+								4, '#dcc4ff',
+								10, '#b38cff',
+								20, '#7f53ff',
+								30, '#0000ff'
 						],
 						'fill-opacity': 0.5
 				}
@@ -280,12 +280,12 @@ function buildMap() {
 	});
 }
 
-//DROPDOWN ANCHOR LINKS
+//DROPDOWN SCROLL
 function scrollTo(element) {
   window.scroll({
     behavior: 'smooth',
     left: 0,
-    top: element.offsetTop - 47
+    top: element.offsetTop - 55
   });
 }
 
@@ -305,7 +305,7 @@ d3.select("#city-select")
 
 //STRIP CHARTS
 function distChart() {
-	var indexType = ['femaleIndex', 'maleIndex'];
+	var indexType = ['Female gayborhood', 'Male gayborhood'];
 	//Loads the data
 	d3.csv('assets/data/IndexCitiesCSV.csv', ready);
 
@@ -326,18 +326,18 @@ function distChart() {
 	    var margin = {top: 0, right: 0, bottom: 30, left: 0};
 	    var constWidth = d3.select(".g-chart-container").node().clientWidth;
 	    var width = constWidth - margin.left - margin.right,
-	        height = 130 - margin.top - margin.bottom;
+	        height = 80 - margin.top - margin.bottom;
 	    //Creates the scales
 	    var xScale = d3.scaleLinear()
 	      .range([0, width])
 	      .domain([0, 50]);
 	    var yScale = d3.scaleLinear()
 	      .range([height, 0])
-	      .domain([0, 100]);
+	      .domain([0, 50]);
 	    //Axes
 			var xAxis = d3.axisBottom()
 					.scale(xScale)
-					.tickPadding(8)
+					.tickPadding(0)
 					.ticks(5)
 	    //Finds the data associated with each index
 	    var currentIndex = index;
@@ -357,11 +357,25 @@ function distChart() {
 	      .append('g')
 	      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+			//background
+			var bgRect = svg.append("rect")
+		    .attr("x", 0)
+		    .attr("y", 0)
+		    .attr("width", width)
+		    .attr("height", height)
+		    .attr("class", "bgRect");
+
 	    //Draw Axes
 			var xAxisGroup = svg.append('g')
 				.attr('class', 'x axis')
 				.attr('transform', 'translate(0,' + height + ')')
-				.call(xAxis);
+				.call(xAxis)
+				.selectAll('g')
+		    .classed('g-left', function(d) { return d == 0 })
+				.classed('g-right', function(d) { return d == 50 });
+
+			d3.selectAll('.g-left').attr('transform', 'translate(3, 0)');
+			d3.selectAll('.g-right').attr('transform', 'translate('+ (width - 8) + ', 0)');
 			//Strips
 			var strips = svg.selectAll("line.index")
 				.data(currentIndexData)
@@ -370,11 +384,8 @@ function distChart() {
 				.attr("class", "percentline")
 				.attr("x1", function(d,i) { return xScale(d.index); })
 				.attr("x2", function(d) { return xScale(d.index); })
-				.attr("y1", 50)
-				.attr("y2", 100)
-				.style("stroke", "#cc0000")
-				.style("stroke-width", 2)
-				.style("opacity", 0.4)
+				.attr("y1", 0)
+				.attr("y2", 50);
 	  }
 	}
 }

@@ -40,6 +40,11 @@
 	font-size 1.5rem
   background-color rgba(255,255,255, 0.9)
 
+  span
+    text-transform uppercase
+    font-family $atlas
+    font-size 14px
+
 .details, .detailscont
   margin 0 auto
   max-width 720px
@@ -57,18 +62,34 @@
   .x.axis line, .domain
     display none
 
+  .bgRect
+    fill $off-white
+
+  .percentline
+      stroke-width 2px
+      stroke #f43737
+      opacity 0.2
+
+  .g-name
+      text-transform uppercase
+      font-weight bold
+      font-family $atlas
+      font-size 14px
+      line-height 1.5
+      margin-bottom 0.5rem
 
 .dropdown-sticky
   position sticky
   top 0
   right 0
-  height 3.5rem
+  height 4.5rem
   background-color rgba(255, 255, 255, 0.9)
   border-bottom 1px solid $gray-light
 
 .dropdown-wrapper
   margin 0 auto
   max-width 720px
+  padding 1rem 0
 
 #city-select
   background-color $off-white
