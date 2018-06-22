@@ -384,8 +384,6 @@ function buildDistChart(err, data, width) {
 }
 
 function resize() {
-	var width = d3.select('#dist-chart').node().offsetWidth;
-	renderCharts(width);
 }
 
 function truncatePage(truncate) {
