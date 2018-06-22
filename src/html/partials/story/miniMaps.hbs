@@ -1,8 +1,11 @@
 {{#each copy.city}}
 <div class='city-wrapper' id='{{minimap}}-link'>
 	<p class='tk-canela x-large city-hed'>{{city}}</p>
+	<div class='city-name-svg'>
+		<img src='assets/images/{{minimap}}-name.png' alt='{{city}} name'>
+	</div>
 	<div class='us-map'>
-		<img src='assets/images/{{minimap}}.png' alt='{{city}}'>
+		<img src='assets/images/{{minimap}}.png' alt='{{city}} map'>
 	</div>
 	<div class='map-wrapper'>
 		<div class='mini-map-wrapper'>

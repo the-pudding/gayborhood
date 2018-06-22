@@ -1,7 +1,6 @@
 //import mapboxgl from 'mapbox-gl';
 import 'intersection-observer'
 import scrollama from 'scrollama';
-import bodymovin from 'bodymovin';
 // D3 is included by globally by default
 
 var openerMap;
@@ -162,10 +161,10 @@ function buildMap() {
 								['linear'],
 								['get', 'ZIPS_Ind_8'],
 								0, '#f6f6f6',
-								4, '#d0eee0',
-								10, '#9fdcc1',
-								20, '#6acba3',
-								30, '#16b886'
+								4, '#9bd2a2',
+								10, '#77c284',
+								20, '#51b267',
+								30, '#15a24a'
 						],
 						'fill-opacity': 0.5
 				}
@@ -190,9 +189,9 @@ function buildMap() {
 								['get', 'ZIPS_Ind_7'],
 								0, '#f6f6f6',
 								4, '#dcc4ff',
-								10, '#b38cff',
-								20, '#7f53ff',
-								30, '#0000ff'
+								10, '#7776b6',
+								20, '#5457a4',
+								30, '#273a92'
 						],
 						'fill-opacity': 0.5
 				}
@@ -217,9 +216,9 @@ function buildMap() {
 								['get', 'ZIPS_Ind_6'],
 								0, '#f6f6f6',
 								4, '#dcc4ff',
-								10, '#b38cff',
-								20, '#7f53ff',
-								30, '#0000ff'
+								10, '#7776b6',
+								20, '#5457a4',
+								30, '#273a92'
 						],
 						'fill-opacity': 0.5
 				}
@@ -267,28 +266,6 @@ function buildMap() {
 	});
 }
 
-//TITLE ANIMATION
-var xhr = new XMLHttpRequest();
-xhr.onload = function () {
-	start( JSON.parse( xhr.responseText ) );
-};
-xhr.open( 'GET', 'assets/data/animation.json' );
-xhr.send();
-
-function start ( animationData ) {
-	var params = {
-		container: document.getElementById('bodymovin'),
-		renderer: 'svg',
-		loop: false,
-		autoplay: true,
-		animationData: animationData
-	};
-
-	var anim;
-
-	anim = bodymovin.loadAnimation(params);
-}
-
 //DROPDOWN SCROLL
 function scrollTo(element) {
   window.scroll({
@@ -332,10 +309,10 @@ function distChart() {
 	    var chartContainer = d3.select('#dist-chart').append('div')
 	      .attr("class", 'g-chart-container');
 	    //Margin and dimensions
-	    var margin = {top: 0, right: 0, bottom: 30, left: 0};
+	    var margin = {top: 0, right: 0, bottom: 40, left: 0};
 	    var constWidth = d3.select(".g-chart-container").node().clientWidth;
 	    var width = constWidth - margin.left - margin.right,
-	        height = 80 - margin.top - margin.bottom;
+	        height = 90 - margin.top - margin.bottom;
 	    //Creates the scales
 	    var xScale = d3.scaleLinear()
 	      .range([0, width])
@@ -374,6 +351,23 @@ function distChart() {
 		    .attr("height", height)
 		    .attr("class", "bgRect");
 
+			//Add annotations
+			if (chartIndex === 1) {
+				var lessConc = svg.append('text')
+					.text('Less concentrated')
+					.attr('class', 'label less')
+					.attr('x', 0)
+					.attr('y', height + margin.bottom)
+					.attr('transform', 'translate(0,0)');
+
+				var moreConc = svg.append('text')
+					.text('More concentrated')
+					.attr('class', 'label more')
+					.attr('x', width)
+					.attr('y', height + margin.bottom)
+					.attr('transform', 'translate(0,0)');
+			}
+
 	    //Draw Axes
 			var xAxisGroup = svg.append('g')
 				.attr('class', 'x axis')
@@ -389,12 +383,12 @@ function distChart() {
 			var strips = svg.selectAll("line.index")
 				.data(currentIndexData)
 				.enter()
-				.append("line")
-				.attr("class", "percentline")
-				.attr("x1", function(d,i) { return xScale(d.index); })
-				.attr("x2", function(d) { return xScale(d.index); })
-				.attr("y1", 0)
-				.attr("y2", 50);
+				.append('line')
+				.attr('class', 'percentline')
+				.attr('x1', function(d,i) { return xScale(d.index); })
+				.attr('x2', function(d) { return xScale(d.index); })
+				.attr('y1', 0)
+				.attr('y2', 50);
 	  }
 	}
 }
