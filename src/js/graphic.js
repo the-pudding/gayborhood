@@ -1,6 +1,7 @@
 //import mapboxgl from 'mapbox-gl';
 import 'intersection-observer'
 import scrollama from 'scrollama';
+import debounce from 'debounce'
 // D3 is included by globally by default
 
 var openerMap;
@@ -302,49 +303,49 @@ function distChart() {
 	  //Map the property names to the data
 	  indexType = d3.set(data.map(function(d) { return d.indexType; })).values();
 	  //Make a chart for each property
-	  var charts = indexType.map(makeChart);
+	  const charts = indexType.map(makeChart);
 
 	  function makeChart(index, chartIndex) {
 	    //Append individual chart div
-	    var chartContainer = d3.select('#dist-chart').append('div')
+	    const chartContainer = d3.select('#dist-chart').append('div')
 	      .attr("class", 'g-chart-container');
 	    //Margin and dimensions
-	    var margin = {top: 0, right: 0, bottom: 40, left: 0};
-	    var constWidth = d3.select(".g-chart-container").node().clientWidth;
-	    var width = constWidth - margin.left - margin.right,
-	        height = 90 - margin.top - margin.bottom;
+	    const margin = {top: 0, right: 0, bottom: 40, left: 0};
+	    const containerWidth = d3.select(".g-chart-container").node().offsetWidth;
+	    const width = containerWidth - margin.left - margin.right;
+	    const height = 90 - margin.top - margin.bottom;
 	    //Creates the scales
-	    var xScale = d3.scaleLinear()
+	    const xScale = d3.scaleLinear()
 	      .range([0, width])
 	      .domain([0, 50]);
-	    var yScale = d3.scaleLinear()
+	    const yScale = d3.scaleLinear()
 	      .range([height, 0])
 	      .domain([0, 50]);
 	    //Axes
-			var xAxis = d3.axisBottom()
+			const xAxis = d3.axisBottom()
 					.scale(xScale)
 					.tickPadding(0)
 					.ticks(5)
 	    //Finds the data associated with each index
-	    var currentIndex = index;
-	    var currentIndexData = data.filter(function(d) { return d.indexType === currentIndex; });
+	    const currentIndex = index;
+	    const currentIndexData = data.filter(function(d) { return d.indexType === currentIndex; });
 			//Appends the property name to the individual chart container
-		    var chartName = chartContainer.append('h5')
-		      .attr('class', 'g-name')
-					.text(currentIndex)
+	    const chartName = chartContainer.append('h5')
+	      .attr('class', 'g-name')
+				.text(currentIndex)
 			//Appends the index chart to the individual chart container
-	    var chart = chartContainer.append('div')
+	    const chart = chartContainer.append('div')
 	      .attr('class', 'g-chart');
 
 	    //Appends the svg to the chart-container div
-	    var svg = chart.append('svg')
+	    const svg = chart.append('svg')
 	      .attr('width', width + margin.left + margin.right)
 	      .attr('height', height + margin.top + margin.bottom)
 	      .append('g')
 	      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 			//background
-			var bgRect = svg.append("rect")
+			const bgRect = svg.append("rect")
 		    .attr("x", 0)
 		    .attr("y", 0)
 		    .attr("width", width)
@@ -353,14 +354,14 @@ function distChart() {
 
 			//Add annotations
 			if (chartIndex === 1) {
-				var lessConc = svg.append('text')
+				const lessConc = svg.append('text')
 					.text('Less concentrated')
 					.attr('class', 'label less')
 					.attr('x', 0)
 					.attr('y', height + margin.bottom)
 					.attr('transform', 'translate(0,0)');
 
-				var moreConc = svg.append('text')
+				const moreConc = svg.append('text')
 					.text('More concentrated')
 					.attr('class', 'label more')
 					.attr('x', width)
@@ -369,7 +370,7 @@ function distChart() {
 			}
 
 	    //Draw Axes
-			var xAxisGroup = svg.append('g')
+			const xAxisGroup = svg.append('g')
 				.attr('class', 'x axis')
 				.attr('transform', 'translate(0,' + height + ')')
 				.call(xAxis)
@@ -380,7 +381,7 @@ function distChart() {
 			d3.selectAll('.g-left').attr('transform', 'translate(3, 0)');
 			d3.selectAll('.g-right').attr('transform', 'translate('+ (width - 8) + ', 0)');
 			//Strips
-			var strips = svg.selectAll("line.index")
+			const strips = svg.selectAll("line.index")
 				.data(currentIndexData)
 				.enter()
 				.append('line')
@@ -393,7 +394,8 @@ function distChart() {
 	}
 }
 
-function resize() {}
+function resize() {
+}
 
 function truncatePage(truncate) {
 	const heightContent = truncate ? $content.select('.intro').node().offsetHeight : 'auto'
@@ -412,17 +414,15 @@ function truncatePage(truncate) {
 
 function init() {
 		truncatePage(true);
-	// 1. force a resize on load to ensure proper dimensions are sent to scrollama
+		// 1. force a resize on load to ensure proper dimensions are sent to scrollama
     handleResize();
-
     // 2. setup the scroller passing options
     // this will also initialize trigger observations
     // 3. bind scrollama event handlers (this can be chained like below)
     scroller.setup({
       step: '.scroll__text .step',
       debug: false,
-    })
-      .onStepEnter(handleStepEnter)
+    }).onStepEnter(handleStepEnter)
 
 		scrollerCity.setup({
 			step: '.city-wrapper',
@@ -434,6 +434,8 @@ function init() {
 
 		buildMap();
 		distChart();
+
+		//window.addEventListener('resize', debounce(resize, 2000));
 }
 
 export default { init, resize };
