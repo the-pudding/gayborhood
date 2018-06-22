@@ -290,111 +290,102 @@ function citySelection() {
 d3.select("#city-select")
   .on("change", citySelection.bind());
 
-//STRIP CHARTS
-function distChart() {
+//DIST CHART
+const chartContainer = d3.select('#dist-chart');
+const chartSvg = d3.select('.dist-chart-svg');
+const containerWidth = d3.select('#dist-chart').node().offsetWidth;
+
+function buildDistChart(err, data, width) {
+	if (err) throw "error loading data";
+	data.forEach(function(d) { d.index = +d.index; });
 	var indexType = ['Female gayborhood', 'Male gayborhood'];
-	//Loads the data
-	d3.csv('assets/data/IndexCitiesCSV.csv', ready);
+	indexType = d3.set(data.map(function(d) { return d.indexType; })).values();
+	const charts = indexType.map(renderCharts);
 
-	function ready(err, data) {
-	  if (err) throw "error loading data";
-	  //Format data
-	  data.forEach(function(d) { d.index = +d.index; });
-	  //Map the property names to the data
-	  indexType = d3.set(data.map(function(d) { return d.indexType; })).values();
-	  //Make a chart for each property
-	  const charts = indexType.map(makeChart);
+	function renderCharts(type, chartIndex, width) {
+		chartContainer.append('div').attr("class", 'g-chart-container');
+		//Margins and dimensions
+		const margin = {top: 0, right: 0, bottom: 40, left: 0};
+		width = containerWidth - margin.left - margin.right;
+		const height = 90 - margin.top - margin.bottom;
+		//Creates the scales
+		const xScale = d3.scaleLinear()
+			.range([0, width])
+			.domain([0, 50]);
+		const yScale = d3.scaleLinear()
+			.range([height, 0])
+			.domain([0, 50]);
+		//Axes
+		const xAxis = d3.axisBottom()
+				.scale(xScale)
+				.tickPadding(0)
+				.ticks(5)
+		//Finds the data associated with each index
+		const currentIndex = type;
+		const currentIndexData = data.filter(function(d) { return d.indexType === currentIndex; });
+		//Appends the property name to the individual chart container
+		const chartName = chartContainer.append('h5')
+			.attr('class', 'g-name')
+			.text(currentIndex)
+		//Appends the index chart to the individual chart container
+		const chart = chartContainer.append('div')
+			.attr('class', 'g-chart');
+		//Appends the svg to the chart-container div
+    const svg = chart.append('svg')
+			.attr('class', 'dist-chart-svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+		//background
+		const bgRect = svg.append("rect")
+	    .attr("x", 0)
+	    .attr("y", 0)
+	    .attr("width", width)
+	    .attr("height", height)
+	    .attr("class", "bgRect");
+		//Add annotations
+		if (chartIndex === 1) {
+			const lessConc = svg.append('text')
+				.text('Less concentrated')
+				.attr('class', 'label less')
+				.attr('x', 0)
+				.attr('y', height + margin.bottom)
+				.attr('transform', 'translate(0,0)');
 
-	  function makeChart(index, chartIndex) {
-	    //Append individual chart div
-	    const chartContainer = d3.select('#dist-chart').append('div')
-	      .attr("class", 'g-chart-container');
-	    //Margin and dimensions
-	    const margin = {top: 0, right: 0, bottom: 40, left: 0};
-	    const containerWidth = d3.select(".g-chart-container").node().offsetWidth;
-	    const width = containerWidth - margin.left - margin.right;
-	    const height = 90 - margin.top - margin.bottom;
-	    //Creates the scales
-	    const xScale = d3.scaleLinear()
-	      .range([0, width])
-	      .domain([0, 50]);
-	    const yScale = d3.scaleLinear()
-	      .range([height, 0])
-	      .domain([0, 50]);
-	    //Axes
-			const xAxis = d3.axisBottom()
-					.scale(xScale)
-					.tickPadding(0)
-					.ticks(5)
-	    //Finds the data associated with each index
-	    const currentIndex = index;
-	    const currentIndexData = data.filter(function(d) { return d.indexType === currentIndex; });
-			//Appends the property name to the individual chart container
-	    const chartName = chartContainer.append('h5')
-	      .attr('class', 'g-name')
-				.text(currentIndex)
-			//Appends the index chart to the individual chart container
-	    const chart = chartContainer.append('div')
-	      .attr('class', 'g-chart');
-
-	    //Appends the svg to the chart-container div
-	    const svg = chart.append('svg')
-	      .attr('width', width + margin.left + margin.right)
-	      .attr('height', height + margin.top + margin.bottom)
-	      .append('g')
-	      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-			//background
-			const bgRect = svg.append("rect")
-		    .attr("x", 0)
-		    .attr("y", 0)
-		    .attr("width", width)
-		    .attr("height", height)
-		    .attr("class", "bgRect");
-
-			//Add annotations
-			if (chartIndex === 1) {
-				const lessConc = svg.append('text')
-					.text('Less concentrated')
-					.attr('class', 'label less')
-					.attr('x', 0)
-					.attr('y', height + margin.bottom)
-					.attr('transform', 'translate(0,0)');
-
-				const moreConc = svg.append('text')
-					.text('More concentrated')
-					.attr('class', 'label more')
-					.attr('x', width)
-					.attr('y', height + margin.bottom)
-					.attr('transform', 'translate(0,0)');
-			}
-
-	    //Draw Axes
-			const xAxisGroup = svg.append('g')
-				.attr('class', 'x axis')
-				.attr('transform', 'translate(0,' + height + ')')
-				.call(xAxis)
-				.selectAll('g')
-		    .classed('g-left', function(d) { return d == 0 })
-				.classed('g-right', function(d) { return d == 50 });
-
-			d3.selectAll('.g-left').attr('transform', 'translate(3, 0)');
-			d3.selectAll('.g-right').attr('transform', 'translate('+ (width - 8) + ', 0)');
-			//Strips
-			const strips = svg.selectAll("line.index")
-				.data(currentIndexData)
-				.enter()
-				.append('line')
-				.attr('class', 'percentline')
-				.attr('x1', function(d,i) { return xScale(d.index); })
-				.attr('x2', function(d) { return xScale(d.index); })
-				.attr('y1', 0)
-				.attr('y2', 50);
-	  }
+			const moreConc = svg.append('text')
+				.text('More concentrated')
+				.attr('class', 'label more')
+				.attr('x', width)
+				.attr('y', height + margin.bottom)
+				.attr('transform', 'translate(0,0)');
+		}
+		//Draw Axes
+		const xAxisGroup = svg.append('g')
+			.attr('class', 'x axis')
+			.attr('transform', 'translate(0,' + height + ')')
+			.call(xAxis)
+			.selectAll('g')
+			.classed('g-left', function(d) { return d == 0 })
+			.classed('g-right', function(d) { return d == 50 });
+		d3.selectAll('.g-left').attr('transform', 'translate(3, 0)');
+		d3.selectAll('.g-right').attr('transform', 'translate('+ (width - 8) + ', 0)');
+		//Strips
+		const strips = svg.selectAll("line.index")
+			.data(currentIndexData)
+			.enter()
+			.append('line')
+			.attr('class', 'percentline')
+			.attr('x1', function(d,i) { return xScale(d.index); })
+			.attr('x2', function(d) { return xScale(d.index); })
+			.attr('y1', 0)
+			.attr('y2', 50);
 	}
 }
 
 function resize() {
+	var width = d3.select('#dist-chart').node().offsetWidth;
+	renderCharts(width);
 }
 
 function truncatePage(truncate) {
@@ -413,6 +404,8 @@ function truncatePage(truncate) {
 }
 
 function init() {
+		d3.csv('assets/data/IndexCitiesCSV.csv', buildDistChart);
+
 		truncatePage(true);
 		// 1. force a resize on load to ensure proper dimensions are sent to scrollama
     handleResize();
@@ -433,9 +426,10 @@ function init() {
     window.addEventListener('resize', handleResize);
 
 		buildMap();
-		distChart();
+		//buildDistChart();
 
-		//window.addEventListener('resize', debounce(resize, 2000));
+		//distChart();
+		window.addEventListener('resize', debounce(resize, 2000));
 }
 
 export default { init, resize };
