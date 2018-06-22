@@ -15,6 +15,9 @@ var text = container.select('.scroll__text');
 var step = text.selectAll('.step');
 // initialize the scrollama
 var scroller = scrollama();
+
+const scrollerCity = scrollama();
+
 // generic window resize listener event
 function handleResize() {
 	// 1. update height of step elements
@@ -81,6 +84,19 @@ function renderStep(index) {
 	}
 }
 
+function handleStepEnterCity({index, element}) {
+	const city = d3.select(element).select('.city-hed').text().trim()
+	d3.select('#city-select').selectAll('option').prop('selected', (d,i,n) => {
+		const option = d3.select(n[i])
+		const text = option.text().trim()
+		return city === text
+	})
+}
+
+function handleStepExitCity({ index, element, direction }) {
+	if (index === 0 && direction === 'up') d3.select('#city-select').selectAll('option').prop('selected', (d, i) => i === 0)
+}
+
 function handleStepEnter(response) {
 	// response = { element, direction, index }
 	step.classed('is-active', function (d, i) {
@@ -92,12 +108,7 @@ function handleStepEnter(response) {
 	// update graphic based on step
 	map.select('p').text(response.index + 1)
 }
-function handleContainerEnter(response) {
-	// response = { direction }
-}
-function handleContainerExit(response) {
-	// response = { direction }
-}
+
 function setupStickyfill() {
 	d3.selectAll('.sticky').each(function () {
 		Stickyfill.add(this);
@@ -414,16 +425,16 @@ function init() {
     // this will also initialize trigger observations
     // 3. bind scrollama event handlers (this can be chained like below)
     scroller.setup({
-      container: '#scroll',
-      graphic: '.scroll__graphic',
-      text: '.scroll__text',
       step: '.scroll__text .step',
       debug: false,
     })
       .onStepEnter(handleStepEnter)
-      .onContainerEnter(handleContainerEnter)
-      .onContainerExit(handleContainerExit);
 
+		scrollerCity.setup({
+			step: '.city-wrapper',
+			offset: 0.1,
+		}).onStepEnter(handleStepEnterCity)
+			.onStepExit(handleStepExitCity)
     // setup resize event
     window.addEventListener('resize', handleResize);
 
