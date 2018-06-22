@@ -1,6 +1,7 @@
 //import mapboxgl from 'mapbox-gl';
 import 'intersection-observer'
 import scrollama from 'scrollama';
+import bodymovin from 'bodymovin';
 // D3 is included by globally by default
 
 var openerMap;
@@ -251,42 +252,30 @@ function buildMap() {
 				'source-layer': 'Parade_routes'
     }, firstSymbolId);
 
-		// var popup = new mapboxgl.Popup({
-		// 	closeButton: false,
-		// 	closeOnClick: false
-		// })
-		//
-		// //MAP INTERACTION
-		// //Adds hovers to bars
-		// openerMap.on('mouseenter', 'gay-bars', function(e) {
-		// 	var features = openerMap.queryRenderedFeatures(e.point,{ layers: ['gay-bars'] });
-		//
-		// 	popup
-		// 		.setLngLat(e.lngLat)
-		// 		.setHTML(features[0].properties.Name)
-		// 		.addTo(openerMap);
-		// })
-		// //Removes hovers to bars
-		// openerMap.on('mouseleave', 'gay-bars', function(e) {
-		// 	popup.remove();
-		// })
-		//Adds hovers to zips
-		// openerMap.on('mouseenter', 'gayborhood-index', function(e) {
-		// 	var features = openerMap.queryRenderedFeatures(e.point,{ layers: ['gayborhood-index'] });
-		//
-		// 	console.log(features);
-		// 	popup
-		// 		.setLngLat(e.lngLat)
-		// 		.setHTML(features[0].properties.ZCTA5CE10)
-		// 		.addTo(openerMap);
-		// })
-		// //Removes hovers to zips
-		// openerMap.on('mouseleave', 'gayborhood-index', function(e) {
-		// 	popup.remove();
-		// })
-
 		truncatePage(false)
 	});
+}
+
+//TITLE ANIMATION
+var xhr = new XMLHttpRequest();
+xhr.onload = function () {
+	start( JSON.parse( xhr.responseText ) );
+};
+xhr.open( 'GET', 'assets/data/animation.json' );
+xhr.send();
+
+function start ( animationData ) {
+	var params = {
+		container: document.getElementById('bodymovin'),
+		renderer: 'svg',
+		loop: false,
+		autoplay: true,
+		animationData: animationData
+	};
+
+	var anim;
+
+	anim = bodymovin.loadAnimation(params);
 }
 
 //DROPDOWN SCROLL
