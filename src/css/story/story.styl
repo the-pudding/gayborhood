@@ -118,12 +118,17 @@
 	right 0
 	height 4.5rem
 	float none
-	+mq('bp-5')
+	+mq('bp-6')
 		float left
 
 
 .dropdown-wrapper
-	padding 4rem 0 0 1rem
+	max-width 720px
+	margin 0 auto
+	padding 1.5rem 0
+	background-color rgba(255, 255, 255, 0.9)
+	+mq('bp-6')
+		padding 4rem 0 0 1rem
 
 #city-select
 	background-color $off-white

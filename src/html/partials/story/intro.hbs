@@ -9,9 +9,9 @@
 <div class='intro'>
 	<div class='hed-container'>
 		<h1 class='intro__hed tk-atlas'>Men are from</h1>
-		<div class='chelsea'>@@include('chelsea-01.svg')</div>
+		<div class='neighborhood'>@@include('chelsea-01.svg')</div>
 		<h1 class='intro__hed tk-atlas'>Women are from</h1>
-		<div class='chelsea'>@@include('park-slope-01.svg')</div>
+		<div class='neighborhood'>@@include('park-slope-01.svg')</div>
 		<p class='intro__dek tk-atlas'>{{meta.description}}</p>
 		<p class='intro__byline tk-atlas'>By
 			<a href='{{meta.author.url}}' target='_blank'>
@@ -23,5 +23,17 @@
 		{{#each copy.prelude}}
 		<p>{{{value}}}</p>
 		{{/each}}
+	</div>
+	<div class='loading-wrapper'>
+		<div class='loading-bar bar1'></div>
+		<div class='loading-bar bar2'></div>
+		<div class='loading-bar bar3'></div>
+		<div class='loading-bar bar4'></div>
+		<div class='loading-bar bar5'></div>
+		<div class='loading-bar bar6'></div>
+	</div>
+	<div class='loading-swap'>
+		<p class='loading-text tk-atlas medium'>Map loading...</p>
+		<div class='arrow'>@@include('chevron-down.svg')</div>
 	</div>
 </div>

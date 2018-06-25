@@ -6,32 +6,32 @@
 
 	.red
 		background-color #ef473e
-		height 16.6%
+		height 16.67%
 		animation left 2s forwards ease
 
 	.orange
 		background-color #f36c21
-		height 16.6%
+		height 16.67%
 		animation right 2s forwards ease
 
 	.yellow
 		background-color #ffc843
-		height 16.6%
+		height 16.67%
 		animation left 2s forwards ease
 
 	.green
 		background-color #46b978
-		height 16.6%
+		height 16.67%
 		animation right 2s forwards ease
 
 	.blue
 		background-color #00b3e2
-		height 16.6%
+		height 16.67%
 		animation left 2s forwards ease
 
 	.purple
 		background-color #273a92
-		height 16.6%
+		height 16.67%
 		animation right 2s forwards ease
 
 	@-webkit-keyframes left {
@@ -59,11 +59,11 @@
 
 .intro
 	margin 0 auto
-	padding 4rem 1rem 1.5rem 1rem
+	padding 4rem 1rem 2rem 1rem
 
 	.hed-container
 		max-width 50rem
-		margin 4rem auto 0 auto
+		margin 2rem auto 0 auto
 
 	&__hed
 		max-width 60rem
@@ -71,11 +71,11 @@
 		padding-top 1rem
 		font-weight 200
 		text-align center
-		set-type-size('x-large', true)
+		set-type-size('large', true)
 		+mq('bp-3')
-			set-type-size('xx-large', true)
+			set-type-size('x-large', true)
 		+mq('bp-5')
-			set-type-size('xxx-large', true)
+			set-type-size('xx-large', true)
 
 	&__byline
 		max-width $column-width
@@ -93,5 +93,122 @@
 		set-type-size('medium', true)
 
 	&__prelude
-			max-width 720px
-			margin 0 auto
+		max-width 720px
+		margin 0 auto
+
+	.neighborhood
+		width 90%
+		margin 0 auto
+
+.loading-wrapper
+	width 100%
+	position relative
+	display none
+	&.is-truncated
+		display block
+
+.loading-text
+	text-align center
+	color $gray-light
+	padding-top 0.5rem
+	margin 0
+	display none
+	&.is-truncated
+		display block
+
+.arrow
+	animation UpDown 1s infinite ease
+	margin 0 auto
+	position relative
+	top 0
+	width 50px
+	display block
+	&.is-truncated
+		display none
+
+@keyframes UpDown {
+  0%, 100% {
+    top: 0;
+  }
+  50% {
+    top: 5px;
+  }
+}
+
+.loading-bar.bar1
+	background-color #ef473e
+	position absolute
+	top 0
+	left 50%
+	width 2%
+	height 3px
+	animation loading-bar 3s infinite ease-out
+	animation-delay 0s
+
+.loading-bar.bar2
+	background-color #f36c21
+	position absolute
+	top 0
+	left 50%
+	width 2%
+	height 3px
+	animation loading-bar 3s infinite ease-out
+	animation-delay 0.5s
+
+.loading-bar.bar3
+	background-color #ffc843
+	position absolute
+	top 0
+	left 50%
+	width 2%
+	height 3px
+	animation loading-bar 3s infinite ease-out
+	animation-delay 1s
+
+.loading-bar.bar4
+	background-color #46b978
+	position absolute
+	top 0
+	left 50%
+	width 2%
+	height 3px
+	animation loading-bar 3s infinite ease-out
+	animation-delay 1.5s
+
+.loading-bar.bar5
+	background-color #00b3e2
+	position absolute
+	top 0
+	left 50%
+	width 2%
+	height 3px
+	animation loading-bar 3s infinite ease-out
+	animation-delay 2s
+
+.loading-bar.bar6
+	background-color #273a92
+	position absolute
+	top 0
+	left 50%
+	width 2%
+	height 3px
+	animation loading-bar 3s infinite ease-out
+	animation-delay 2.5s
+
+	@-webkit-keyframes loading-bar {
+	  0% {
+	    transform: scaleX(1);
+	    z-index: 5;
+	  }
+	  25% {
+	    z-index: 4;
+	  }
+	  50% {
+	    transform: scaleX(100);
+	    z-index: 3;
+	  }
+	  100% {
+	    transform: scaleX(100);
+	    z-index: 1;
+	  }
+	}

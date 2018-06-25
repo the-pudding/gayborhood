@@ -461,7 +461,10 @@ function truncatePage(truncate) {
 	const heightContent = truncate
 		? $content.select('.intro').node().offsetHeight
 		: 'auto';
+	d3.selectAll('.loading-wrapper').classed('is-truncated', truncate);
+	d3.selectAll('.arrow').classed('is-truncated', truncate);
 	$content.st('height', heightContent).classed('is-truncated', truncate);
+	d3.selectAll('.loading-text').classed('is-truncated', truncate);
 
 	if (!truncate) {
 		openerMap.setPaintProperty('gayborhood-index', 'fill-opacity', 0);
