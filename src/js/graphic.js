@@ -301,25 +301,22 @@ const chartContainer = d3.select('#dist-chart');
 const chartSvg = d3.select('.dist-chart-svg');
 const containerWidth = d3.select('#dist-chart').node().offsetWidth;
 
-function buildDistChart(err, data, width) {
+function buildDistChart(err, data) {
 	if (err) throw "error loading data";
 	data.forEach(function(d) { d.index = +d.index; });
 	var indexType = ['Female gayborhood', 'Male gayborhood'];
 	indexType = d3.set(data.map(function(d) { return d.indexType; })).values();
 	const charts = indexType.map(renderCharts);
 
-	function renderCharts(type, chartIndex, width) {
+	function renderCharts(indexType, chartIndex) {
 		var individualChart = chartContainer.append('div').attr("class", 'g-chart-container');
 		//Margins and dimensions
-		const margin = {top: 0, right: 0, bottom: 40, left: 0};
-		width = containerWidth - margin.left - margin.right;
-		const height = 90 - margin.top - margin.bottom;
+		const margin = {top: 0, right: 0, bottom: 20, left: 0};
+		const width = containerWidth - margin.left - margin.right;
+		const height = 70 - margin.top - margin.bottom;
 		//Creates the scales
 		const xScale = d3.scaleLinear()
 			.range([0, width])
-			.domain([0, 50]);
-		const yScale = d3.scaleLinear()
-			.range([height, 0])
 			.domain([0, 50]);
 		//Axes
 		const xAxis = d3.axisBottom()
@@ -327,7 +324,7 @@ function buildDistChart(err, data, width) {
 				.tickPadding(0)
 				.ticks(5)
 		//Finds the data associated with each index
-		const currentIndex = type;
+		const currentIndex = indexType;
 		const currentIndexData = data.filter(function(d) { return d.indexType === currentIndex; });
 		//Appends the property name to the individual chart container
 		const chartName = individualChart.append('h5')
@@ -370,12 +367,7 @@ function buildDistChart(err, data, width) {
 		const xAxisGroup = svg.append('g')
 			.attr('class', 'x axis')
 			.attr('transform', 'translate(0,' + height + ')')
-			.call(xAxis)
-			.selectAll('g')
-			.classed('g-left', function(d) { return d == 0 })
-			.classed('g-right', function(d) { return d == 50 });
-		d3.selectAll('.g-left').attr('transform', 'translate(3, 0)');
-		d3.selectAll('.g-right').attr('transform', 'translate('+ (width - 8) + ', 0)');
+			.call(xAxis);
 		//Strips
 		const strips = svg.selectAll("line.index")
 			.data(currentIndexData)
@@ -410,6 +402,7 @@ function truncatePage(truncate) {
 
 function init() {
 		d3.csv('assets/data/IndexCitiesCSV.csv', buildDistChart);
+		window.addEventListener('resize', debounce(resize, 2000));
 
 		truncatePage(true);
 		// 1. force a resize on load to ensure proper dimensions are sent to scrollama
@@ -431,10 +424,6 @@ function init() {
     window.addEventListener('resize', handleResize);
 
 		buildMap();
-		//buildDistChart();
-
-		//distChart();
-		window.addEventListener('resize', debounce(resize, 2000));
 }
 
 export default { init, resize };
