@@ -49,6 +49,7 @@ function renderStep(index) {
 		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
 		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
 		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 0);
+		openerMap.setPaintProperty('gay-bars', 'circle-stroke-opacity', 0);
 	}
 
 	if (index === 1) {
@@ -56,7 +57,8 @@ function renderStep(index) {
 		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0);
 		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
 		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
-		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 0.7);
+		openerMap.setPaintProperty('gay-bars', 'circle-stroke-opacity', 0.7);
 	}
 
 	if (index === 2) {
@@ -64,7 +66,8 @@ function renderStep(index) {
 		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0);
 		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
 		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
-		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 0.7);
+		openerMap.setPaintProperty('gay-bars', 'circle-stroke-opacity', 0.7);
 	}
 
 	if (index === 3) {
@@ -72,7 +75,8 @@ function renderStep(index) {
 		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0.5);
 		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
 		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
-		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 0.7);
+		openerMap.setPaintProperty('gay-bars', 'circle-stroke-opacity', 0.7);
 	}
 
 	if (index === 4) {
@@ -80,7 +84,8 @@ function renderStep(index) {
 		openerMap.setPaintProperty('gayborhood-index-MM', 'fill-opacity', 0);
 		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0.5);
 		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 1);
-		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 1);
+		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 0.7);
+		openerMap.setPaintProperty('gay-bars', 'circle-stroke-opacity', 0.7);
 	}
 }
 
@@ -162,10 +167,10 @@ function buildMap() {
 								['linear'],
 								['get', 'ZIPS_Ind_8'],
 								0, '#f6f6f6',
-								4, '#9bd2a2',
-								10, '#77c284',
-								20, '#51b267',
-								30, '#15a24a'
+								4, '#ffb993',
+								10, '#ff9f6e',
+								20, '#fb8548',
+								30, '#f36c21'
 						],
 						'fill-opacity': 0.5
 				}
@@ -237,8 +242,9 @@ function buildMap() {
         },
         'paint': {
             'circle-radius': 3,
-            'circle-color': 'rgba(1,1,1,1)',
-						'circle-opacity': 1
+            'circle-color': 'rgba(1,1,1, 0.7)',
+						'circle-stroke-color': '#ffffff',
+						'circle-stroke-width': 1
         },
 				'source-layer': 'gaybarsMOD-575puu'
     }, firstSymbolId);
@@ -303,7 +309,7 @@ function buildDistChart(err, data, width) {
 	const charts = indexType.map(renderCharts);
 
 	function renderCharts(type, chartIndex, width) {
-		chartContainer.append('div').attr("class", 'g-chart-container');
+		var individualChart = chartContainer.append('div').attr("class", 'g-chart-container');
 		//Margins and dimensions
 		const margin = {top: 0, right: 0, bottom: 40, left: 0};
 		width = containerWidth - margin.left - margin.right;
@@ -324,11 +330,11 @@ function buildDistChart(err, data, width) {
 		const currentIndex = type;
 		const currentIndexData = data.filter(function(d) { return d.indexType === currentIndex; });
 		//Appends the property name to the individual chart container
-		const chartName = chartContainer.append('h5')
+		const chartName = individualChart.append('h5')
 			.attr('class', 'g-name')
 			.text(currentIndex)
 		//Appends the index chart to the individual chart container
-		const chart = chartContainer.append('div')
+		const chart = individualChart.append('div')
 			.attr('class', 'g-chart');
 		//Appends the svg to the chart-container div
     const svg = chart.append('svg')
@@ -398,6 +404,7 @@ function truncatePage(truncate) {
 		openerMap.setPaintProperty('gayborhood-index-FF', 'fill-opacity', 0);
 		openerMap.setPaintProperty('paradeRoute', 'line-opacity', 0);
 		openerMap.setPaintProperty('gay-bars', 'circle-opacity', 0);
+		openerMap.setPaintProperty('gay-bars', 'circle-stroke-opacity', 0);
 	}
 }
 

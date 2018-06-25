@@ -1,3 +1,62 @@
+.rainbow
+	height 100vh
+	width 100%
+	padding-top 2.5rem
+	position absolute
+
+	.red
+		background-color #ef473e
+		height 16.6%
+		animation left 2s forwards ease
+
+	.orange
+		background-color #f36c21
+		height 16.6%
+		animation right 2s forwards ease
+
+	.yellow
+		background-color #ffc843
+		height 16.6%
+		animation left 2s forwards ease
+
+	.green
+		background-color #46b978
+		height 16.6%
+		animation right 2s forwards ease
+
+	.blue
+		background-color #00b3e2
+		height 16.6%
+		animation left 2s forwards ease
+
+	.purple
+		background-color #273a92
+		height 16.6%
+		animation right 2s forwards ease
+
+	@-webkit-keyframes left {
+	  0% {
+	    transform: translateX(0px);
+	  }
+		50% {
+	    transform: translateX(0px);
+	  }
+	  100% {
+	    transform: translateX(2000px);
+	  }
+	}
+	@-webkit-keyframes right {
+	  0% {
+	    transform: translateX(0px);
+	  }
+		50% {
+	    transform: translateX(0px);
+	  }
+	  100% {
+	    transform: translateX(-2000px);
+	  }
+	}
+
 .intro
 	margin 0 auto
 	padding 4rem 1rem 1.5rem 1rem
