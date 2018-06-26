@@ -22,8 +22,9 @@
 .scroll__text
 	position relative
 	max-width 100%
-	width 100%
+	width 'calc(100% - 1rem)'
 	padding 0
+	margin 1rem
 	+mq('bp-4')
 		width 50%
 		padding 0 1rem
@@ -57,6 +58,7 @@
 
 .details
 	margin 0 auto
+	padding 0rem 1rem 2rem 1rem
 	max-width 720px
 
 	.dist-dek
@@ -64,7 +66,9 @@
 
 #dist-chart
 	width 100%
-	margin 1rem 0 5rem 0
+	margin 1rem 0
+	+mq('bp-5')
+		margin 1rem 0 5rem 0
 
 	.axis text
 		font-family $atlas
@@ -109,6 +113,7 @@
 		margin 0 0 0.5rem 0
 
 .detailscont
+	padding 0rem 1rem 2rem 1rem
 	margin 0 auto
 	max-width 720px
 
@@ -137,9 +142,12 @@
 	height 2.5rem
 
 .city-wrapper
-	margin 5rem auto 0 auto
+	padding 0rem 1rem 2rem 1rem
+	margin 0 auto
 	max-width 720px
 	border-top 1px solid $off-white
+	+mq('bp-5')
+		margin 5rem auto 0 auto
 
 .city-hed
 	display none
@@ -147,28 +155,34 @@
 	float left
 
 .city-name-svg
-		width 350px
+		width 75%
 		float left
 		margin 0.75rem 0
+		+mq('bp-5')
+			width 45%
 
 .us-map
 	float right
-	width 75px
+	width 20%
 	height 50px
 	margin-top 0.5rem
+	+mq('bp-5')
+		width 25%
 
 .map-wrapper
-	display flex
-	justify-content space-between
+	display block
 	clear both
+	width 100%
+	+mq('bp-4')
+		display flex
+		justify-content space-between
+		clear both
 
 .mini-map-wrapper
-	width 32%
-
-	p
-		margin-top 0.5rem
-		font-weight bold
-		text-transform uppercase
+	width 100%
+	margin-bottom 1rem
+	+mq('bp-4')
+		width 49%
 
 .mini-map
 	width 100%
@@ -198,3 +212,34 @@
 		.list-start
 			font-weight bold
 			text-transform uppercase
+
+#g-Maps-ai2html-box
+	.g-artboard
+		margin 0 auto
+		position relative
+		overflow hidden
+
+		p
+			margin 0
+
+		.g-pstyle0
+			font-family $atlas
+			text-align center
+			set-type-size('small', true)
+			line-height 1.2
+			text-shadow -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+
+	.g-aiAbs
+		position absolute
+
+	.g-aiImg
+		display block
+		width 100% !important
+
+	.g-aiSymbol
+		position absolute
+		box-sizing border-box
+
+	.g-aiPointText
+		p
+			white-space nowrap
