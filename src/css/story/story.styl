@@ -46,7 +46,7 @@
 				padding 1rem
 				set-type-size('small', true)
 				+mq('bp-4')
-					set-type-size('medium', true)
+					set-type-size('root', true)
 
 				span
 					text-transform uppercase
@@ -68,7 +68,7 @@
 	width 100%
 	margin 1rem 0
 	+mq('bp-5')
-		margin 1rem 0 5rem 0
+		margin 1rem 0 2rem 0
 
 	.axis text
 		font-family $atlas
@@ -104,6 +104,10 @@
 		stroke-width 2px
 		stroke rgba(39,58,146, 0.2)
 
+	.non-highlight
+		stroke-width 2px
+		stroke rgba(150,150,150, 0.2)
+
 	.g-name
 		text-transform uppercase
 		font-weight bold
@@ -123,17 +127,18 @@
 	right 0
 	height 4.5rem
 	float none
+	z-index 1
 	+mq('bp-6')
 		float left
 
 
 .dropdown-wrapper
-	max-width 720px
+	max-width 690px
 	margin 0 auto
-	padding 1.5rem 0
+	padding 1.25rem 0 1rem 0
 	background-color rgba(255, 255, 255, 0.9)
 	+mq('bp-6')
-		padding 4rem 0 0 1rem
+		padding 3rem 0 0 1rem
 
 #city-select
 	background-color $off-white
@@ -147,7 +152,7 @@
 	max-width 720px
 	border-top 1px solid $off-white
 	+mq('bp-5')
-		margin 5rem auto 0 auto
+		margin 3rem auto 0 auto
 
 .city-hed
 	display none
@@ -155,19 +160,19 @@
 	float left
 
 .city-name-svg
-		width 75%
+		width 70%
 		float left
 		margin 0.75rem 0
-		+mq('bp-5')
+		+mq('bp-4')
 			width 45%
 
 .us-map
 	float right
-	width 20%
+	width 15%
 	height 50px
 	margin-top 0.5rem
-	+mq('bp-5')
-		width 25%
+	+mq('bp-4')
+		width 75px
 
 .map-wrapper
 	display block
@@ -187,6 +192,13 @@
 .mini-map
 	width 100%
 	background-color $off-white
+
+.chart-label
+	font-weight bold
+	text-transform uppercase
+	margin 0.25rem 0 1.5rem 0
+	+mq('bp-4')
+		margin 0.5rem 0 0 0
 
 .methodology-wrapper
 	margin 6rem auto 0 auto

@@ -74,7 +74,7 @@ function resizeCharts() {
 // generic window resize listener event
 function handleResize() {
 	// 1. update height of step elements
-	const stepHeight = Math.floor(window.innerHeight * 0.75);
+	const stepHeight = Math.floor(window.innerHeight * 0.85);
 	step.style('height', `${stepHeight}px`);
 
 	step
@@ -373,7 +373,7 @@ function scrollTo(element) {
 	window.scroll({
 		behavior: 'smooth',
 		left: 0,
-		top: element.offsetTop - 110
+		top: element.offsetTop - 50
 	});
 }
 
