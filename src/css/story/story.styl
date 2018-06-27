@@ -142,22 +142,20 @@
 
 .dropdown-sticky
 	position sticky
-	top 2.5rem
+	top -1px
 	right 0
-	height 4.5rem
-	float none
+	height 4rem
 	z-index 1
-	+mq('bp-6')
-		float left
+	padding 0.5rem 1rem 0 1rem
+	background-color rgba(255, 255, 255, 0.9)
+	border-bottom 1px solid $gray-light
+	+mq('bp-5')
+		padding 0.5rem 0 0 0
 
 
 .dropdown-wrapper
-	max-width 690px
+	max-width 960px
 	margin 0 auto
-	padding 1.25rem 0 1rem 0
-	background-color rgba(255, 255, 255, 0.9)
-	+mq('bp-6')
-		padding 3rem 0 0 1rem
 
 #city-select
 	background-color $off-white
@@ -166,12 +164,12 @@
 	height 2.5rem
 
 .city-wrapper
-	padding 0rem 1rem 2rem 1rem
 	margin 0 auto
-	max-width 720px
+	max-width 960px
+	padding 0 1rem
 	border-top 1px solid $off-white
 	+mq('bp-5')
-		margin 3rem auto 0 auto
+		padding 0
 
 .city-hed
 	display none
@@ -179,15 +177,15 @@
 	float left
 
 .city-name-svg
-		width 70%
+		width 60%
 		float left
 		margin 0.75rem 0
 		+mq('bp-4')
-			width 45%
+			width 40%
 
 .us-map
 	float right
-	width 15%
+	width 12%
 	height 50px
 	margin-top 0.5rem
 	+mq('bp-4')
@@ -197,27 +195,79 @@
 	display block
 	clear both
 	width 100%
-	+mq('bp-4')
+	+mq('bp-5')
 		display flex
 		justify-content space-between
 		clear both
 
 .mini-map-wrapper
 	width 100%
-	margin-bottom 1rem
-	+mq('bp-4')
-		width 49%
+	max-width 450px
+	margin 0 auto 5rem auto
+	+mq('bp-5')
+		width 32%
+		margin 0 auto 2rem auto
 
 .mini-map
 	width 100%
 	background-color $off-white
+
+.index-scale
+	width 100%
+	margin-top 0.5rem
+
+	.scale-block
+		width 25%
+		height 20px
+		float left
+		opacity 0.65
+
+	.label
+		font-family $atlas
+		set-type-size('x-small', true)
+		color $gray-dark
+		float left
+		margin 0.25rem 0 0 0
+
+	.right
+		text-align right
+		float right
+
+	.SS1
+		background-color #ffb993
+
+	.SS2
+		background-color #ff9f6e
+
+	.SS3
+		background-color #fb8548
+
+	.SS4
+		background-color #f36c21
+
+	.G1
+		background-color #dcc4ff
+
+	.G2
+		background-color #7776b6
+
+	.G3
+		background-color #5457a4
+
+	.G4
+		background-color #273a92
 
 .chart-label
 	font-weight bold
 	text-transform uppercase
 	margin 0.25rem 0 1.5rem 0
 	+mq('bp-4')
-		margin 0.5rem 0 0 0
+		margin 0.5rem 0 0.5rem 0
+
+.text-wrapper
+	max-width 720px
+	margin 3.5rem auto 0 auto
+	padding 0rem 1rem 2rem 1rem
 
 .methodology-wrapper
 	margin 6rem auto 0 auto
@@ -256,7 +306,7 @@
 		.g-pstyle0
 			font-family $atlas
 			text-align center
-			set-type-size('small', true)
+			set-type-size('x-small', true)
 			line-height 1.2
 			text-shadow -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
 

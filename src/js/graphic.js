@@ -243,13 +243,13 @@ function buildMap() {
 						0,
 						'#f6f6f6',
 						4,
-						'#dcc4ff',
+						'#ffb993',
 						10,
-						'#7776b6',
+						'#ff9f6e',
 						20,
-						'#5457a4',
+						'#fb8548',
 						30,
-						'#273a92'
+						'#f36c21'
 					],
 					'fill-opacity': 0.5
 				}
@@ -278,13 +278,13 @@ function buildMap() {
 						0,
 						'#f6f6f6',
 						4,
-						'#ffb993',
+						'#dcc4ff',
 						10,
-						'#ff9f6e',
+						'#7776b6',
 						20,
-						'#fb8548',
+						'#5457a4',
 						30,
-						'#f36c21'
+						'#273a92'
 					],
 					'fill-opacity': 0.5
 				}
@@ -313,13 +313,13 @@ function buildMap() {
 						0,
 						'#f6f6f6',
 						4,
-						'#ffb993',
+						'#dcc4ff',
 						10,
-						'#ff9f6e',
+						'#7776b6',
 						20,
-						'#fb8548',
+						'#5457a4',
 						30,
-						'#f36c21'
+						'#273a92'
 					],
 					'fill-opacity': 0.5
 				}
@@ -386,15 +386,9 @@ function scrollTo(element) {
 }
 
 function citySelection() {
-	const citySelection = document.getElementById('city-select');
-	const citySelectionValue =
-		citySelection.options[citySelection.selectedIndex].value;
-	const citySelectionLink = `${citySelectionValue}-link`;
-
-	if (citySelectionValue !== 'choose') {
-		const cityScroll = document.getElementById(citySelectionLink);
-		scrollTo(cityScroll);
-	}
+    const { value } = this;
+    const el = d3.select(`#${value}-link`).node();
+    scrollTo(el);
 }
 
 function renderChart({ indexType, chartIndex, data }) {
@@ -521,7 +515,7 @@ function init() {
 		.onStepExit(handleStepExitCity);
 
 	buildMap();
-	d3.select('#city-select').on('change', citySelection.bind());
+	d3.select('#city-select').on('change', citySelection);
 }
 
 export default { init, resize };
