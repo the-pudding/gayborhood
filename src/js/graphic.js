@@ -377,11 +377,25 @@ function buildMap() {
 }
 
 // DROPDOWN SCROLL
+function stickDropDown() {
+	const citySticker = document.getElementById('dropdown-sticky');
+	const stickerPosTop = citySticker.offsetTop;
+
+	if (window.pageYOffset > stickerPosTop) {
+    citySticker.classList.add('stickyfix');
+		console.log(stickerPosTop, window.pageYOffset)
+  } else {
+    citySticker.classList.remove('stickyfix');
+		console.log(stickerPosTop, window.pageYOffset)
+  }
+}
+window.onscroll = function() {stickDropDown()};
+
 function scrollTo(element) {
 	window.scroll({
 		behavior: 'smooth',
 		left: 0,
-		top: element.offsetTop - 60 
+		top: element.offsetTop - 60
 	});
 }
 
