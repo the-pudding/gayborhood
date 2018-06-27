@@ -150,10 +150,7 @@
 	margin 0 auto
 	max-width 720px
 
-.dropdown-sticky
-	position sticky
-	top -1px
-	right 0
+#dropdown-sticky
 	height 4rem
 	z-index 1
 	padding 0.5rem 1rem 0 1rem
@@ -161,6 +158,12 @@
 	border-bottom 1px solid $gray-light
 	+mq('bp-5')
 		padding 0.5rem 1rem 0 1rem
+
+.stickyfix
+	position fixed
+	top 0
+	left 0
+	width 100%
 
 
 .dropdown-wrapper
@@ -172,6 +175,7 @@
 	border none
 	cursor pointer
 	height 2.5rem
+	set-type-size('root', true)
 
 #city-select:focus
 	outline none
