@@ -24,11 +24,11 @@ const chartSvg = d3.select('.dist-chart-svg');
 
 function resizeCharts() {
 	// Margins and dimensions
-	const margin = { top: 0, right: 0, bottom: 20, left: 0 };
+	const margin = { top: 20, right: 0, bottom: 20, left: 0 };
 
 	const containerWidth = d3.select('#dist-chart').node().offsetWidth;
 	const width = containerWidth - margin.left - margin.right;
-	const height = 70 - margin.top - margin.bottom;
+	const height = 90 - margin.top - margin.bottom;
 
 	// Creates the scales
 	const xScale = d3
@@ -56,11 +56,19 @@ function resizeCharts() {
 	// .label.less
 	g.selectAll('.label.less')
 		.at('x', 0)
-		.at('y', height + margin.bottom);
+		.at('y', height + margin.bottom - 5);
 
 	g.selectAll('.label.more')
 		.at('x', width)
-		.at('y', height + margin.bottom);
+		.at('y', height + margin.bottom - 5);
+
+	g.selectAll('.top-zips')
+		.at('x', width - 5)
+		.at('y', -5);
+
+	g.selectAll('.top-zips-f')
+		.at('x', width/4)
+		.at('y', height + margin.bottom - 5);
 
 	g.selectAll('.axis.x')
 		.at('transform', `translate(0,${height})`)
@@ -395,7 +403,8 @@ function renderChart({ indexType, chartIndex, data }) {
 
 	// Finds the data associated with each index
 	const currentIndex = indexType;
-	const currentIndexData = data.filter(d => d.indexType === currentIndex);
+	const filteredDataZero = data.filter(d => d.index > 0);
+	const currentIndexData = filteredDataZero.filter(d => d.indexType === currentIndex);
 	// Appends the property name to the individual chart container
 	const chartName = individualChart
 		.append('h5')
@@ -415,12 +424,21 @@ function renderChart({ indexType, chartIndex, data }) {
 	// Add annotations
 	if (chartIndex === 1) {
 		g.append('text')
-			.text('Less concentrated')
+			.text('Lower index')
 			.attr('class', 'label less');
 
 		g.append('text')
-			.text('More concentrated')
+			.text('Higher index')
 			.attr('class', 'label more');
+
+		g.append('text')
+			.text('Castro (CA), 94114')
+			.attr('class', 'top-zips');
+	}
+	if(chartIndex === 0) {
+		g.append('text')
+			.text('Jamaica Plain (MA), 02130')
+			.attr('class', 'top-zips-f');
 	}
 	// Draw Axes
 	const xAxisGroup = g.append('g').attr('class', 'x axis');
@@ -432,6 +450,8 @@ function renderChart({ indexType, chartIndex, data }) {
 		.enter()
 		.append('line')
 		.attr('class', 'percentline')
+		.classed('top-value-m', function(d) { return d.zipcode == '94114' && d.indexType == 'Same-sex male' })
+		.classed('top-value-f', function(d) { return d.zipcode == '02130' && d.indexType == 'Same-sex female' })
 		.attr('y1', 0)
 		.attr('y2', 50);
 }
@@ -441,7 +461,7 @@ function buildDistChart(err, data) {
 	data.forEach(d => {
 		d.index = +d.index;
 	});
-	let indexType = ['Female gayborhood', 'Male gayborhood'];
+	let indexType = ['Same-sex female', 'Same-sex male'];
 	indexType = d3.set(data.map(d => d.indexType)).values();
 
 	indexType.forEach((indexType, i) =>

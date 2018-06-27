@@ -70,6 +70,9 @@
 	+mq('bp-5')
 		margin 1rem 0 2rem 0
 
+	.g-chart
+		margin-top -20px
+
 	.axis text
 		font-family $atlas
 		set-type-size('x-small', true)
@@ -88,6 +91,22 @@
 	.more
 		text-anchor end
 
+	.top-zips
+		font-family $atlas
+		set-type-size('x-small', true)
+		pointer-events none
+		text-anchor end
+		fill #f36c21
+		font-weight bold
+
+	.top-zips-f
+		font-family $atlas
+		set-type-size('x-small', true)
+		pointer-events none
+		text-anchor start
+		fill #f36c21
+		font-weight bold
+
   .x.axis line
 		display none
 
@@ -104,9 +123,9 @@
 		stroke-width 2px
 		stroke rgba(39,58,146, 0.2)
 
-	.non-highlight
+	.top-value-f, .top-value-m
 		stroke-width 2px
-		stroke rgba(150,150,150, 0.2)
+		stroke rgb(243,108,33)
 
 	.g-name
 		text-transform uppercase
