@@ -22,14 +22,7 @@
 				{{#each copy.stepThree}}
 				<p>{{{value}}}</p>
 				{{/each}}
-				<div class='index-scale'>
-					<div class='scale-block SS1'></div>
-					<div class='scale-block SS2'></div>
-					<div class='scale-block SS3'></div>
-					<div class='scale-block SS4'></div>
-					<p class='label'>Less certain</p>
-					<p class='label right'>More certain</p>
-				</div>
+				{{> story/scale-s }}
 			</div>
 		</div>
 		<div class='step' data-step='4'>
@@ -37,14 +30,7 @@
 				{{#each copy.stepFour}}
 				<p>{{{value}}}</p>
 				{{/each}}
-				<div class='index-scale'>
-					<div class='scale-block G1'></div>
-					<div class='scale-block G2'></div>
-					<div class='scale-block G3'></div>
-					<div class='scale-block G4'></div>
-					<p class='label'>Less certain</p>
-					<p class='label right'>More certain</p>
-				</div>
+				 {{> story/scale-g }}
 			</div>
 		</div>
 		<div class='step' data-step='5'>
@@ -52,14 +38,7 @@
 				{{#each copy.stepFive}}
 				<p>{{{value}}}</p>
 				{{/each}}
-				<div class='index-scale'>
-					<div class='scale-block G1'></div>
-					<div class='scale-block G2'></div>
-					<div class='scale-block G3'></div>
-					<div class='scale-block G4'></div>
-					<p class='label'>Less certain</p>
-					<p class='label right'>More certain</p>
-				</div>
+				 {{> story/scale-g }}
 			</div>
 		</div>
 	</div>
