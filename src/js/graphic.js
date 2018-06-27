@@ -418,11 +418,11 @@ function renderChart({ indexType, chartIndex, data }) {
 	// Add annotations
 	if (chartIndex === 1) {
 		g.append('text')
-			.text('Lower index')
+			.text('Less certain')
 			.attr('class', 'label less');
 
 		g.append('text')
-			.text('Higher index')
+			.text('More certain')
 			.attr('class', 'label more');
 
 		g.append('text')
