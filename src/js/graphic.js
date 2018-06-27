@@ -373,24 +373,20 @@ function buildMap() {
 		);
 
 		truncatePage(false);
+
+		loadScript();
 	});
 }
 
-// DROPDOWN SCROLL
-function stickDropDown() {
-	const citySticker = document.getElementById('dropdown-sticky');
-	const stickerPosTop = citySticker.offsetTop;
-
-	if (window.pageYOffset > stickerPosTop) {
-    citySticker.classList.add('stickyfix');
-		console.log(stickerPosTop, window.pageYOffset)
-  } else {
-    citySticker.classList.remove('stickyfix');
-		console.log(stickerPosTop, window.pageYOffset)
-  }
+// LOADS FOOTER SCRIPT AFTER MAP
+function loadScript() {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://pudding.cool/assets/scripts/pudding-footer.js';
+    document.head.appendChild(script);
 }
-window.onscroll = function() {stickDropDown()};
 
+// DROPDOWN SCROLL
 function scrollTo(element) {
 	window.scroll({
 		behavior: 'smooth',
