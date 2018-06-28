@@ -196,11 +196,11 @@ function setupStickyfill() {
 function buildMap() {
 	// Initializes mapbox mapbox
 	mapboxgl.accessToken =
-		'pk.eyJ1IjoiamFkaWVobSIsImEiOiIzTjRUSFZjIn0.sed_QtqpB7m5yFLmK2VV9g';
+		'pk.eyJ1IjoiZG9jazQyNDIiLCJhIjoiY2pjazE5eTM2NDl2aDJ3cDUyeDlsb292NiJ9.Jr__XbmAolbLyzPDj7-8kQ';
 
 	openerMap = new mapboxgl.Map({
 		container: 'scrollMap', // container id
-		style: 'mapbox://styles/jadiehm/cji3f7z4n13s52rmz42onwmkx', // style URL
+		style: 'mapbox://styles/dock4242/cjiymo5vla5ni2rqoo2fex0ut', // style URL
 		center: [-73.980539, 40.715444],
 		// maxZoom: 18,
 		// maxBounds: [[-122.963019,47.303616], [-121.782112, 47.983433]],
@@ -227,7 +227,7 @@ function buildMap() {
 				id: 'gayborhood-index',
 				source: {
 					type: 'vector',
-					url: 'mapbox://jadiehm.indexJoined'
+					url: 'mapbox://dock4242.indexJoined'
 				},
 				layout: {
 					visibility: 'visible'
@@ -262,7 +262,7 @@ function buildMap() {
 				id: 'gayborhood-index-MM',
 				source: {
 					type: 'vector',
-					url: 'mapbox://jadiehm.indexJoined'
+					url: 'mapbox://dock4242.indexJoined'
 				},
 				layout: {
 					visibility: 'visible'
@@ -297,7 +297,7 @@ function buildMap() {
 				id: 'gayborhood-index-FF',
 				source: {
 					type: 'vector',
-					url: 'mapbox://jadiehm.indexJoined'
+					url: 'mapbox://dock4242.indexJoined'
 				},
 				layout: {
 					visibility: 'visible'
@@ -333,7 +333,7 @@ function buildMap() {
 				type: 'circle',
 				source: {
 					type: 'vector',
-					url: 'mapbox://jadiehm.2zsul8ff'
+					url: 'mapbox://dock4242.1chmexzf'
 				},
 				layout: {
 					visibility: 'visible'
@@ -344,7 +344,7 @@ function buildMap() {
 					'circle-stroke-color': '#ffffff',
 					'circle-stroke-width': 1
 				},
-				'source-layer': 'gaybarsMOD-575puu'
+				'source-layer': 'gaybarsMOD-1kkrox'
 			},
 			firstSymbolId
 		);
@@ -355,7 +355,7 @@ function buildMap() {
 				type: 'line',
 				source: {
 					type: 'vector',
-					url: 'mapbox://jadiehm.b4vpcbja'
+					url: 'mapbox://dock4242.a4rxske7'
 				},
 				layout: {
 					visibility: 'visible',
