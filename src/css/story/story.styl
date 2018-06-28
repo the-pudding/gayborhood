@@ -151,17 +151,21 @@
 	max-width 720px
 
 #dropdown-sticky
-	z-index 1
-	padding 0.5rem 1rem
-	background-color rgba(255, 255, 255, 0.9)
-	border-bottom 1px solid $gray-light
+	position relative
+	height 3rem
 
-.stickyfix
-	position fixed
-	top 0
-	left 0
-	width 100%
-
+	.dropdown-sticky-outer
+		position absolute
+		top 0
+		left 0
+		width 100%
+		padding 0.5rem 1rem
+		background-color rgba(255, 255, 255, 0.9)
+		border-bottom 1px solid $gray-light
+		height 3rem
+		z-index set-index(top)
+		&.is-fixed
+			position fixed
 
 .dropdown-wrapper
 	max-width 960px
@@ -171,7 +175,7 @@
 	background-color $off-white
 	border none
 	cursor pointer
-	height 2.5rem
+	height 2rem
 	set-type-size('root', true)
 
 #city-select:focus

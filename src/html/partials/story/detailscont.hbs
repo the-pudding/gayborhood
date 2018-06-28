@@ -5,12 +5,14 @@
 		{{/each}}
 </div>
 <div id='dropdown-sticky'>
-	<div class='dropdown-wrapper'>
-		<select id='city-select' class='tk-atlas small'>
-		  <option value='choose' selected='true' disabled='disabled'>Choose a city</option>
-			{{#each copy.city}}
-			<option value='{{minimap}}'>{{city}}</option>
-			{{/each}}
-		</select>
+	<div class='dropdown-sticky-outer'>
+		<div class='dropdown-wrapper'>
+			<select id='city-select' class='tk-atlas small'>
+				<option value='choose' selected='true' disabled='disabled'>Choose a city</option>
+				{{#each copy.city}}
+				<option value='{{minimap}}'>{{city}}</option>
+				{{/each}}
+			</select>
+		</div>
 	</div>
 </div>

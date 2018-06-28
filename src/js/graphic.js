@@ -1,8 +1,6 @@
-// import mapboxgl from 'mapbox-gl';
 import 'intersection-observer';
 import scrollama from 'scrollama';
-import debounce from 'debounce';
-// D3 is included by globally by default
+import enterView from 'enter-view';
 
 let openerMap;
 
@@ -21,6 +19,8 @@ const scrollerCity = scrollama();
 // DIST CHART
 const chartContainer = d3.select('#dist-chart');
 const chartSvg = d3.select('.dist-chart-svg');
+
+const $dropdowStickyOuter = d3.select('.dropdown-sticky-outer');
 
 function resizeCharts() {
 	// Margins and dimensions
@@ -67,7 +67,7 @@ function resizeCharts() {
 		.at('y', -5);
 
 	g.selectAll('.top-zips-f')
-		.at('x', width/4)
+		.at('x', width / 4)
 		.at('y', height + margin.bottom - 5);
 
 	g.selectAll('.axis.x')
@@ -380,10 +380,10 @@ function buildMap() {
 
 // LOADS FOOTER SCRIPT AFTER MAP
 function loadScript() {
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = 'https://pudding.cool/assets/scripts/pudding-footer.js';
-    document.head.appendChild(script);
+	const script = document.createElement('script');
+	script.type = 'text/javascript';
+	script.src = 'https://pudding.cool/assets/scripts/pudding-footer.js';
+	document.head.appendChild(script);
 }
 
 // DROPDOWN SCROLL
@@ -396,9 +396,9 @@ function scrollTo(element) {
 }
 
 function citySelection() {
-    const { value } = this;
-    const el = d3.select(`#${value}-link`).node();
-    scrollTo(el);
+	const { value } = this;
+	const el = d3.select(`#${value}-link`).node();
+	scrollTo(el);
 }
 
 function renderChart({ indexType, chartIndex, data }) {
@@ -408,7 +408,9 @@ function renderChart({ indexType, chartIndex, data }) {
 	// Finds the data associated with each index
 	const currentIndex = indexType;
 	const filteredDataZero = data.filter(d => d.index > 0);
-	const currentIndexData = filteredDataZero.filter(d => d.indexType === currentIndex);
+	const currentIndexData = filteredDataZero.filter(
+		d => d.indexType === currentIndex
+	);
 	// Appends the property name to the individual chart container
 	const chartName = individualChart
 		.append('h5')
@@ -439,7 +441,7 @@ function renderChart({ indexType, chartIndex, data }) {
 			.text('Castro (CA), 94114')
 			.attr('class', 'top-zips');
 	}
-	if(chartIndex === 0) {
+	if (chartIndex === 0) {
 		g.append('text')
 			.text('Jamaica Plain (MA), 02130')
 			.attr('class', 'top-zips-f');
@@ -454,8 +456,14 @@ function renderChart({ indexType, chartIndex, data }) {
 		.enter()
 		.append('line')
 		.attr('class', 'percentline')
-		.classed('top-value-m', function(d) { return d.zipcode == '94114' && d.indexType == 'Same-sex male' })
-		.classed('top-value-f', function(d) { return d.zipcode == '02130' && d.indexType == 'Same-sex female' })
+		.classed(
+			'top-value-m',
+			d => d.zipcode == '94114' && d.indexType == 'Same-sex male'
+		)
+		.classed(
+			'top-value-f',
+			d => d.zipcode == '02130' && d.indexType == 'Same-sex female'
+		)
 		.attr('y1', 0)
 		.attr('y2', 50);
 }
@@ -526,6 +534,28 @@ function init() {
 
 	buildMap();
 	d3.select('#city-select').on('change', citySelection);
+
+	enterView({
+		selector: '#dropdown-sticky',
+		offset: 1,
+		enter: () => {
+			$dropdowStickyOuter.classed('is-fixed', true);
+		},
+		exit: () => {
+			$dropdowStickyOuter.classed('is-fixed', false);
+		}
+	});
+
+	enterView({
+		selector: '.methodology-wrapper',
+		offset: 0.75,
+		enter: () => {
+			$dropdowStickyOuter.classed('is-fixed', false);
+		},
+		exit: () => {
+			$dropdowStickyOuter.classed('is-fixed', true);
+		}
+	});
 }
 
 export default { init, resize };
