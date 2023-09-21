@@ -196,7 +196,7 @@ function setupStickyfill() {
 function buildMap() {
 	// Initializes mapbox mapbox
 	mapboxgl.accessToken =
-		'pk.eyJ1IjoiZG9jazQyNDIiLCJhIjoiY2pjazE5eTM2NDl2aDJ3cDUyeDlsb292NiJ9.Jr__XbmAolbLyzPDj7-8kQ';
+		'pk.eyJ1IjoiZG9jazQyNDIiLCJhIjoiY2xtdGJsNTY5MDFkMjJqbXp4ZDZjYW5xNCJ9.FVZ6EWrEfRox2Ojf7-1eBA';
 
 	openerMap = new mapboxgl.Map({
 		container: 'scrollMap', // container id
